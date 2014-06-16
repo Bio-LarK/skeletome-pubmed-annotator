@@ -14,7 +14,7 @@ angular.module('skeletomePubmedAnnotatorApp')
             'AngularJS',
             'Karma'
         ];
-        $scope.pubmedId = 24891183;
+        $scope.pubmedId = 24864036;
 
         $scope.getPubmed = function (pubmedId) {
             Restangular.one('pubmed', pubmedId).get().then(function (pubmed) {

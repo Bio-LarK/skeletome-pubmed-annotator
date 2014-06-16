@@ -24,7 +24,6 @@ $app->get('/pubmed/:pubmedId/annotations', function ($pubmedId) {
     $pubmedAbstractText = $article->PubmedArticle->MedlineCitation->Article->Abstract->AbstractText;
     $abstract = $pubmedAbstractText;
     if (is_array($pubmedAbstractText)) {
-        echo 'is array';
         foreach ($pubmedAbstractText as $abstractText) {
             $abstract .= $abstractText;
         }
