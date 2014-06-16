@@ -13,8 +13,8 @@
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="annotation in annotations">
                 	{{ annotation.originalSpan }}
-                	<button class="btn btn-default">Keep</button> 
-                	<button class="btn btn-default">Remove</button> 
+                	<!-- <button class="btn btn-default">Keep</button>  -->
+                	<button class="btn btn-default" ng-click="removeAnnotation(annotation)">Remove</button> 
                 	<!-- <pre>
                 		{{ annotation }}
                 	</pre> -->

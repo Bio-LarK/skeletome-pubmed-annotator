@@ -33,4 +33,8 @@ angular.module('skeletomePubmedAnnotatorApp')
             });
         };
 
+        $scope.removeAnnotation = function (annotation) {
+            $scope.annotations = _.without($scope.annotations, annotation);
+        };
+
     });
