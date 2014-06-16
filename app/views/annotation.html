@@ -3,9 +3,23 @@
         <div class="form">
             <div class="form-group">
                 <label for="pubmedid">Pubmed ID</label>
-                <input type="email" class="form-control" id="pubmedid" placeholder="Pubmed ID" ng-model="pubmedId">
+                <input type="number" class="form-control" id="pubmedid" placeholder="Pubmed ID" ng-model="pubmedId">
             </div>
             <button class="btn btn-primary" ng-click="getPubmed(pubmedId)">Find</button>
+            <h2>{{ pubmed.PubmedArticle.MedlineCitation.Article.ArticleTitle }}</h2>
+            <div>
+                {{ abstract }}
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="annotation in annotations">
+                	{{ annotation.originalSpan }}
+                	<button class="btn btn-default">Keep</button> 
+                	<button class="btn btn-default">Remove</button> 
+                	<!-- <pre>
+                		{{ annotation }}
+                	</pre> -->
+                </li>
+            </ul>
         </div>
     </div>
 </div>
