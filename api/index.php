@@ -20,8 +20,14 @@ $app->get('/pubmed/:pubmedId/annotations', function ($pubmedId) {
     $article = json_decode(json_encode(simplexml_load_file("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=$pubmedId&retmode=xml")));
 
     $abstract = '';
-    foreach ($article->PubmedArticle->MedlineCitation->Article->Abstract->AbstractText as $abstractText) {
-        $abstract .= $abstractText;
+
+    $pubmedAbstractText = $article->PubmedArticle->MedlineCitation->Article->Abstract->AbstractText;
+    $abstract = $pubmedAbstractText;
+    if (is_array($pubmedAbstractText)) {
+        echo 'is array';
+        foreach ($pubmedAbstractText as $abstractText) {
+            $abstract .= $abstractText;
+        }
     }
 
     $url = 'http://115.146.86.140:8080/biolark/annotate';
