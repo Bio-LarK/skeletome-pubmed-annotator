@@ -48,4 +48,12 @@ $app->get('/pubmed/:pubmedId/annotations', function ($pubmedId) {
     echo json_encode($matches);
 });
 
+$app->get('/hpos', function () use ($app) {
+    $name = $app->request->get('name');
+
+    $url = "http://115.146.86.140/archive/drupal/api/hpo.json?parameters%5Bname%5D=$name";
+    $hpos = json_decode(file_get_contents($url));
+
+    echo json_encode($hpos);
+});
 $app->run();
