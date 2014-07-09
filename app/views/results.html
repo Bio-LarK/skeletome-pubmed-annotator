@@ -1,0 +1,59 @@
+
+
+<div class="container">
+    <div class="row">
+  <!--       <div class="page-header">
+            <h1>Phenotype
+                <small>Pubmed Browser</small>
+            </h1>
+
+            <div ui-select2="searchSelect" ng-model="search">
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel panel-default" ng-repeat="pubmed in pubmeds">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><a ui-sref="pubmed({pubmedId: pubmed.id})">{{ pubmed.title }}</a></h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ pubmed.abstract }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">HPO</h3>
+                    </div>
+                    <ul class="list-group">
+                    	<li class="list-group-item">
+                    		<input type="search" class="form-control" placeholder="Filter" ng-model="hpoSearch">
+                    	</li>
+                        <li class="list-group-item" ng-repeat="hpo in hpos | filter:hpoSearch">
+                            <button class="btn btn-xs btn-secondary pull-right" ng-click="addTermToSearch(hpo)">Add</button>
+                            <a ui-sref="term({termId: hpo.id, termType: 'hpo', termName: hpo.linkText})">{{ hpo.text }}</a> 
+                            <span class="label label-default">3</span>
+                        </li>
+                        <li class="list-group-item">
+                        	<button class="btn btn-default form-control">Show More (37) <i class="glyphicon glyphicon-chevron-down"></i></button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">MESH Term</h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="hpo in results">
+                            <button class="btn btn-xs btn-secondary pull-right" ng-click="addTermToSearch(hpo)">Add</button>
+                            <a href="">{{ term.text }}</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

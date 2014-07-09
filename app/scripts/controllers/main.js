@@ -8,10 +8,12 @@
  * Controller of the skeletomePubmedAnnotatorApp
  */
 angular.module('skeletomePubmedAnnotatorApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('MainCtrl', function ($scope) {
+        $scope.awesomeThings = [
+            'HTML5 Boilerplate',
+            'AngularJS',
+            'Karma'
+        ];
+
+        console.log('loading controller');
+    });

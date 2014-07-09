@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>{{ term.text }}</h2>
+        </div>
+
+        <div class="col-sm-8">
+            <div class="panel panel-default" ng-repeat="pubmed in pubmeds">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a ui-sref="pubmed({pubmedId: pubmed.id})">{{ pubmed.title }}</a>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {{ pubmed.abstract }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">HPO</h3>
+                </div>
+                <ul class="list-group">
+                    <li ng-repeat="hpo in hpos" class="list-group-item">
+                        <a ui-sref="term({termId: hpo.id, termType: 'hpo', termName: hpo.linkText})">
+                            {{ hpo.text }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">MESH</h3>
+                </div>
+                <ul class="list-group">
+                    <li ng-repeat="mesh in meshes" class="list-group-item">
+                        <a ui-sref="term({termId: mesh.id, termType: 'mesh', termName: mesh.linkText})">
+                            {{ mesh.text }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

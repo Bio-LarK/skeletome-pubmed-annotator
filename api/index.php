@@ -2,6 +2,9 @@
 require 'vendor/autoload.php';
 
 
+define("ARCHIVE_API_BASE_URL", "http://115.146.86.140/archive/drupal/api/");
+define("BIOLARK_API_BASE_URL", "http://115.146.86.140:8080/biolark/");
+
 $app = new \Slim\Slim();
 
 $app->get('/hello/:name', function ($name) {
@@ -29,8 +32,9 @@ $app->get('/pubmed/:pubmedId/annotations', function ($pubmedId) {
         }
     }
 
-    $url = 'http://115.146.86.140:8080/biolark/annotate';
-    $data = array('text' => $abstract, 'dataSource' => 'Human Phenotype Ontology|Bone Dysplasia Ontology');
+    $url = BIOLARK_API_BASE_URL . 'annotate';
+
+    $data = array('text' => $abstract, 'dataSource' => 'Human Phenotype Ontology');
 
     // use key 'http' even if you send the request to https://...
     $options = array(
@@ -44,14 +48,34 @@ $app->get('/pubmed/:pubmedId/annotations', function ($pubmedId) {
     $result = file_get_contents($url, false, $context);
 
     $matches = json_decode($result);
-    
-    echo json_encode($matches);
+
+    $annotations = array_map(function ($annotation) {
+        $url = ARCHIVE_API_BASE_URL . "hpo.json?parameters%5Buri%5D=$annotation->uri";
+        $hpos = json_decode(file_get_contents($url));
+        if (count($hpos)) {
+            $annotation->hpo = $hpos[0];
+        }
+        return $annotation;
+    }, $matches);
+
+    echo json_encode($annotations);
 });
 
 $app->get('/hpos', function () use ($app) {
-    $name = $app->request->get('name');
 
-    $url = "http://115.146.86.140/archive/drupal/api/hpo.json?parameters%5Bname%5D=$name";
+    $name = $app->request->get('name');
+    $uri = $app->request->get('uri');
+
+    if(!$name && !$uri) {
+        return array();
+    }
+
+    if ($name) {
+        $url = ARCHIVE_API_BASE_URL . "hpo.json?parameters%5Bname%5D=$name";
+    } else if ($uri) {
+        $url = ARCHIVE_API_BASE_URL . "hpo.json?parameters%5Buri%5D=$uri";
+    }
+
     $hpos = json_decode(file_get_contents($url));
 
     echo json_encode($hpos);

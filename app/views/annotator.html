@@ -1,0 +1,14 @@
+<div>
+    <h2>Abstract</h2>
+    <pre>
+		{{ annotation | json }}
+	</pre>
+    <div ng-mousedown="mouseDown()" ng-mouseup="mouseUp()">
+        <div style="border: 1px solid red;" ng-show="isAnnotating">
+            {{ text }}
+        </div>
+        <div ng-hide="isAnnotating" style="border: 1px solid blue;">
+            <div class="abstract"></div>
+        </div>
+    </div>
+</div>
