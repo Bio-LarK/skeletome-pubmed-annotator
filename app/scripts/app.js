@@ -8,7 +8,9 @@
  *
  * Main module of the application.
  */
-angular.module('skeletomePubmedAnnotatorApp', ['ui.router', 'restangular', 'ui.select2'])
+angular.module('skeletomePubmedAnnotatorApp', [
+    'ui.router', 'restangular', 'ui.select2', 'angular-loading-bar'
+])
     .run(function ($rootScope, $state, $stateParams, searchbar, $timeout, $http) { // instance-injector
         // This is an example of a run block.
         // You can have as many of these as you want.
@@ -143,6 +145,23 @@ angular.module('skeletomePubmedAnnotatorApp', ['ui.router', 'restangular', 'ui.s
             .state('term', {
                 url: '/term/:termId/:termType/:termName',
                 controller: 'TermCtrl',
+                resolve: {
+                    term: function ($http, $stateParams) {
+                        if ($stateParams.termType === 'hpo') {
+                            // /hpo?id=<<HPO ID>>
+                            return $http.get('phenopub/hpo?id=' + $stateParams.termId).then(function (response) {
+                                return response.data;
+                            });
+                        }
+                        if ($stateParams.termType === 'mesh') {
+                            return $http.get('phenopub/mesh?id=' + $stateParams.termId).then(function (response) {
+                                return response.data;
+                            });
+                        }
+
+                        return false;
+                    }
+                },
                 templateUrl: 'views/term.html'
             })
             .state('pubmed', {

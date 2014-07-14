@@ -1,42 +1,42 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <h2>{{ term.text }}</h2>
+            <h2>{{ term.label }} <small>{{ $stateParams.termType }}</small></h2>
+
+            <h3>Inforamtion Content</h3>
+            {{ term.ic }}
+    
+            <h3>Synonyms</h3>
+            <ul>
+                <li ng-repeat="synonym in term.synonyms">
+                    {{ synonym }}
+                </li>
+            </ul>
         </div>
 
         <div class="col-sm-8">
-            <div class="panel panel-default" ng-repeat="pubmed in pubmeds">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><a ui-sref="pubmed({pubmedId: pubmed.id})">{{ pubmed.title }}</a>
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    {{ pubmed.abstract }}
-                </div>
+            <div ng-repeat="pubmed in term.pubs">
+                <h3><a ui-sref="pubmed({pubmedId: pubmed.pmid})">{{ pubmed.title }}</a></h3>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="panel panel-default" ng-show="$stateParams.termType === 'mesh'">
-                <div class="panel-heading">
-                    <h3 class="panel-title">HPO</h3>
-                </div>
-                <ul class="list-group">
-                    <li ng-repeat="hpo in hpos" class="list-group-item">
-                        <a ui-sref="term({termId: hpo.id, termType: 'hpo', termName: hpo.linkText})">
-                            {{ hpo.text }}
+            <div>
+                <h3>MeSH</h3>
+                <ul>
+                    <li ng-repeat="mesh in term.mesh">
+                        <a ui-sref="term({termId: mesh.id, termType: 'mesh', termName: mesh.label})">
+                            {{ mesh.label }}
                         </a>
                     </li>
                 </ul>
             </div>
 
-            <div class="panel panel-default" ng-show="$stateParams.termType === 'hpo'">
-                <div class="panel-heading">
-                    <h3 class="panel-title">MESH</h3>
-                </div>
-                <ul class="list-group">
-                    <li ng-repeat="mesh in meshes" class="list-group-item">
-                        <a ui-sref="term({termId: mesh.id, termType: 'mesh', termName: mesh.linkText})">
-                            {{ mesh.text }}
+            <div>
+                <h3>HPO</h3>
+                <ul>
+                    <li ng-repeat="hpo in term.hpo">
+                        <a ui-sref="term({termId: hpo.id, termType: 'mesh', termName: mesh.label})">
+                            {{ mesh.label }}
                         </a>
                     </li>
                 </ul>
