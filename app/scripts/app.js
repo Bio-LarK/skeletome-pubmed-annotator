@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular.module('skeletomePubmedAnnotatorApp', ['ui.router', 'restangular', 'ui.select2'])
-    .run(function ($rootScope, $state, $stateParams, searchbar, $timeout) { // instance-injector
+    .run(function ($rootScope, $state, $stateParams, searchbar, $timeout, $http) { // instance-injector
         // This is an example of a run block.
         // You can have as many of these as you want.
         // You can only inject instances (not Providers)
@@ -30,17 +30,42 @@ angular.module('skeletomePubmedAnnotatorApp', ['ui.router', 'restangular', 'ui.s
 
         $rootScope.doSearch = function (terms) {
             if (terms && terms.length) {
-                $state.go('results');
+
+                var publication = _.findWhere(terms, {
+                    type: 'pubmed'
+                });
+
+                if (publication) {
+                    $state.go('pubmed', {
+                        pubmedId: publication.id
+                    });
+                    return;
+                }
+
+                var hpoIds = [];
+                var meshIds = [];
+                angular.forEach(terms, function (term) {
+                    if (term.type === 'hpo') {
+                        hpoIds.push(term.id);
+                    }
+                    if (term.type === 'mesh') {
+                        meshIds.push(term.id);
+                    }
+                });
+                $state.go('results', {
+                    hpo: hpoIds.join(','),
+                    mesh: meshIds.join(',')
+                });
             }
         };
 
 
+
         $rootScope.$on('$stateChangeStart',
-            function (event, toState, toParams, fromState, fromParams) {
+            function (event, toState) {
                 console.log('toState', toState);
                 if (toState.name !== 'results') {
                     searchbar.terms.length = 0;
-
                 } else {
                     console.log('focus!');
                     $timeout(function () {
@@ -61,11 +86,33 @@ angular.module('skeletomePubmedAnnotatorApp', ['ui.router', 'restangular', 'ui.s
             multiple: true,
             minimumInputLength: 2,
             query: function (options) {
-                var data = {
-                    results: $rootScope.hpos
-                };
+                console.log('options', options);
 
-                options.callback(data);
+                $http.get('phenopub/autocomplete?start=' + options.term).success(function (data) {
+                    var meshes = _.map(data.MESH, function (mesh) {
+                        mesh.type = 'mesh';
+                        mesh.text = mesh.label + ' (MESH)';
+                        return mesh;
+                    });
+                    var hpos = _.map(data.HPO, function (hpo) {
+                        hpo.type = 'hpo';
+                        hpo.text = hpo.label + ' (HPO)';
+                        return hpo;
+                    });
+                    var pubmeds = _.map(data.PUBMED, function (pubmed) {
+                        pubmed.type = 'pubmed';
+                        pubmed.text = pubmed.label + ' (Publication)';
+                        return pubmed;
+                    });
+
+                    var results = meshes.concat(hpos).concat(pubmeds);
+                    // console.log('meshes', results);
+                    options.callback({
+                        results: _.sortBy(results, function (result) {
+                            return result.text.length;
+                        })
+                    });
+                });
             }
         };
 
@@ -76,7 +123,7 @@ angular.module('skeletomePubmedAnnotatorApp', ['ui.router', 'restangular', 'ui.s
     })
     .config(function ($stateProvider, $urlRouterProvider, RestangularProvider) {
         console.log('ho there');
-        RestangularProvider.setBaseUrl('api');
+        RestangularProvider.setBaseUrl('phenopub');
 
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise('/');
@@ -89,7 +136,7 @@ angular.module('skeletomePubmedAnnotatorApp', ['ui.router', 'restangular', 'ui.s
                 templateUrl: 'views/search.html'
             })
             .state('results', {
-                url: '/results',
+                url: '/results?hpo?mesh',
                 controller: 'ResultsCtrl',
                 templateUrl: 'views/results.html'
             })
@@ -100,6 +147,15 @@ angular.module('skeletomePubmedAnnotatorApp', ['ui.router', 'restangular', 'ui.s
             })
             .state('pubmed', {
                 url: '/pubmed/:pubmedId',
+                resolve: {
+                    pubmed: ['$http', '$stateParams',
+                        function ($http, $stateParams) {
+                            return $http.get('phenopub/pmid?id=' + $stateParams.pubmedId).then(function (response) {
+                                return response.data;
+                            });
+                        }
+                    ]
+                },
                 controller: 'PubmedCtrl',
                 templateUrl: 'views/pubmed.html'
             });

@@ -37,9 +37,14 @@ a {
 	color: #3498db;
 	background-color: white;
 }
-.jumbotron {
+.btn.btn-primary {
 	background-color: #f1c40f;
+	border: 1px solid #f1c40f;
 	color: white;
+}
+.jumbotron {
+	/*background-color: #f1c40f;*/
+	/*color: white;*/
 }
 
 body {

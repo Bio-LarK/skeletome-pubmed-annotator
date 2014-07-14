@@ -2,46 +2,68 @@
     <div class="row">
         <div class="col-sm-12">
             <h2>{{ pubmed.title }}</h2>
+            <div>
+                <!-- authors -->
+                <h3>Authors</h3>
+                <ol>
+                    <li ng-repeat="(position, author) in pubmed.authors">
+                        {{ author }}
+                    </li>
+                </ol>
+	
+				<h3>Date</h3>
+				<p>{{ pubmed.date}}</p>
+
+				<h3>Issue</h3>
+				<p>{{ pubmed.issue }}</p>
+
+				<h3>Journal</h3>
+				<p>{{ pubmed.journal }}</p>
+
+				<h3>Volume</h3>
+				<p>{{ pubmed.volume }}</p>
+            </div>
         </div>
 
         <div class="col-sm-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Abstract</h3>
-                </div>
-                <div class="panel-body">
-                    {{ pubmed.abstract }}
-                </div>
-            </div>
+            <!-- <div class="panel panel-default"> -->
+            <!-- <div class="panel-heading"> -->
+            <h3 class="panel-title">Abstract</h3>
+
+            <!-- </div> -->
+            <!-- <div class="panel-body"> -->
+            {{ pubmed.abstract }}
+            <!-- </div> -->
+            <!-- </div> -->
         </div>
         <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">HPO</h3>
-                </div>
-                <ul class="list-group">
-                    <li ng-repeat="hpo in hpos" class="list-group-item">
-                        <a ui-sref="term({termId: hpo.id, termType: 'hpo', termName: hpo.linkText})">
-							{{ hpo.text }}
-						</a>
-                    </li>
-                </ul>
-            </div>
+            <!-- <div class="panel panel-default"> -->
+            <!-- <div class="panel-heading"> -->
+            <h3 class="panel-title">HPO</h3>
+            <!-- </div> -->
+            <ul class="list-group">
+                <li ng-repeat="hpo in pubmed.hpo" class="list-group-item">
+                    <a ui-sref="term({termId: hpo.id, termType: 'hpo', termName: hpo.label})">
+						{{ hpo.label }}
+					</a>
+                </li>
+            </ul>
+            <!-- </div> -->
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">MESH</h3>
-                </div>
-                <!-- <div class="panel-body"> -->
-                    <ul class="list-group">
-                        <li ng-repeat="mesh in meshes" class="list-group-item">
-                            <a ui-sref="term({termId: mesh.id, termType: 'mesh', termName: mesh.linkText})">
-								{{ mesh.text }}
-							</a>
-                        </li>
-                    </ul>
-                <!-- </div> -->
-            </div>
+            <!-- <div class="panel panel-default"> -->
+            <!-- <div class="panel-heading"> -->
+            <h3 class="panel-title">MESH</h3>
+            <!-- </div> -->
+            <!-- <div class="panel-body"> -->
+            <ul class="list-group">
+                <li ng-repeat="mesh in pubmed.mesh" class="list-group-item">
+                    <a ui-sref="term({termId: mesh.id, termType: 'mesh', termName: mesh.label})">
+						{{ mesh.label }}
+					</a>
+                </li>
+            </ul>
+            <!-- </div> -->
+            <!-- </div> -->
         </div>
     </div>
 </div>

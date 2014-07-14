@@ -1,8 +1,6 @@
-
-
 <div class="container">
     <div class="row">
-  <!--       <div class="page-header">
+        <!--       <div class="page-header">
             <h1>Phenotype
                 <small>Pubmed Browser</small>
             </h1>
@@ -11,48 +9,83 @@
             </div>
         </div> -->
         <div class="row">
-            <div class="col-sm-8">
-                <div class="panel panel-default" ng-repeat="pubmed in pubmeds">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><a ui-sref="pubmed({pubmedId: pubmed.id})">{{ pubmed.title }}</a></h3>
-                    </div>
-                    <div class="panel-body">
-                        {{ pubmed.abstract }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+            <div class="col-sm-3">
+                <!-- <div class="panel panel-default"> -->
+                    <!-- <div class="panel-heading"> -->
                         <h3 class="panel-title">HPO</h3>
-                    </div>
-                    <ul class="list-group">
-                    	<li class="list-group-item">
-                    		<input type="search" class="form-control" placeholder="Filter" ng-model="hpoSearch">
-                    	</li>
-                        <li class="list-group-item" ng-repeat="hpo in hpos | filter:hpoSearch">
-                            <button class="btn btn-xs btn-secondary pull-right" ng-click="addTermToSearch(hpo)">Add</button>
-                            <a ui-sref="term({termId: hpo.id, termType: 'hpo', termName: hpo.linkText})">{{ hpo.text }}</a> 
-                            <span class="label label-default">3</span>
-                        </li>
-                        <li class="list-group-item">
-                        	<button class="btn btn-default form-control">Show More (37) <i class="glyphicon glyphicon-chevron-down"></i></button>
-                        </li>
-                    </ul>
-                </div>
+                    <!-- </div> -->
+                    <div>
+                        <div>
+                            <input type="search" class="form-control" placeholder="Filter" ng-model="hpoSearch">
+                        </div>
+                        <a ng-repeat="hpo in hpos | orderBy:'-count' | filter:hpoSearch | limitTo:10" style="text-align: right; display: block; background-color: #ffff00; padding: 10px; margin-bottom: 2px;" ui-sref="term({termId: hpo.id, termType: 'hpo', termName: hpo.linkText})">
+                            <!-- <button class="btn btn-xs btn-secondary pull-right" ng-click="addTermToSearch(hpo)">Add</button> -->
+                            {{ hpo.label }}
+                            <span class="label label-default">{{ hpo.count }}</span>
+                        </a>
+                        
+                        <!-- <a class="list-group-item"> -->
+                        <button class="btn btn-link">Show More (37)</button>
+                        <!-- </a> -->
+                    <!-- </div> -->
+                <!-- </div> -->
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">MESH Term</h3>
                     </div>
                     <ul class="list-group">
-                        <li class="list-group-item" ng-repeat="hpo in results">
+                        <li class="list-group-item" ng-repeat="mesh in meshes">
                             <button class="btn btn-xs btn-secondary pull-right" ng-click="addTermToSearch(hpo)">Add</button>
-                            <a href="">{{ term.text }}</a>
+                            <a ui-sref="term({termId: mesh.id, termType: 'mesh', termName: mesh.linkText})">{{ mesh.label }}</a>
+                            <span class="label label-default">{{ mesh.count }}</span>
                         </li>
                     </ul>
                 </div>
 
+                </div>
+            </div>
+
+            <div class="col-sm-8">
+                <div ng-repeat="pubmed in pubmeds" style="border-bottom: 1px solid #eee;">
+                    <!-- <div class="panel-heading"> -->
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <!-- <img class="media-object" src="..." alt="..."> -->
+                        </a>
+                        <div class="media-body">
+                            <h4>
+                                <a ui-sref="pubmed({pubmedId: pubmed.pmid})">{{ pubmed.title }}</a>
+                            </h4>
+                            <p style="margin-bottom: 16px;" class="text-muted">
+                                HPO {{ pubmed.hpo.length }} MESH {{ pubmed.mesh.length }}
+                            </p>
+                            <!-- </div> -->
+                            <!-- <div class="panel-body"> -->
+                            <p>
+                                {{ pubmed.abstract }}
+                            </p>
+
+                            <!--<p>
+                                OBJECTIVE: The aim of this study was to assess the diagnostic value of muscle ultrasonography in focal neuropathies.
+                            </p>
+                            <p>
+                                SUBJECTS AND METHODS: 100 patients suffering from unilateral symptoms or signs on the extremities indicating injuries of nerve roots, plexus, or peripheral nerves were prospectively examined by manual muscle testing (MMT), electromyography (EMG), and quantitative muscle ultrasonography. Muscle thickness and echointensity (gray scale analysis) were measured and compared to the results from 28 control subjects.
+                            </p>
+                            <p>
+                                RESULTS: Ultrasonography was as sensitive as MMT and EMG in detecting muscle involvement. Ultrasonography and EMG were complementary. In 27% of 85 paretic muscles, only one of both techniques revealed pathological findings. Increased echointensity was seen in 82%, atrophy in 31% of pathological muscles. Earliest ultrasonographic abnormalities and pathological spontaneous activity in EMG appeared 10 days after the injury. The inter-observer agreement of ultrasonography was slightly, but significantly lower than that of EMG.
+                            </p>
+                            <p>
+                                CONCLUSION: Muscle ultrasound can visualize anatomical abnormalities such as muscle atrophy and mesenchymal abnormalities in lesions of nerve roots, plexus, and peripheral nerve lesions.
+                            </p>-->
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- </div> -->
+                </div>
             </div>
         </div>
     </div>

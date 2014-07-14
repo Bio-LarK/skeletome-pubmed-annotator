@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="panel panel-default">
+            <div class="panel panel-default" ng-show="$stateParams.termType === 'mesh'">
                 <div class="panel-heading">
                     <h3 class="panel-title">HPO</h3>
                 </div>
@@ -29,7 +29,7 @@
                 </ul>
             </div>
 
-            <div class="panel panel-default">
+            <div class="panel panel-default" ng-show="$stateParams.termType === 'hpo'">
                 <div class="panel-heading">
                     <h3 class="panel-title">MESH</h3>
                 </div>

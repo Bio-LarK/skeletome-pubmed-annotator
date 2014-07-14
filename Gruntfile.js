@@ -92,13 +92,10 @@ module.exports = function (grunt) {
                 livereload: 35729
             },
             proxies: [{
-                context: '/api',
-                host: '127.0.0.1',
-                port: 8000,
-                https: false,
-                rewrite: {
-                    '^/api': '',
-                }
+                context: '/phenopub',
+                host: '118.138.241.167',
+                port: 8080,
+                https: false
             }],
             livereload: {
                 options: {
