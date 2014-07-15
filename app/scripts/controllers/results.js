@@ -18,40 +18,116 @@ angular.module('skeletomePubmedAnnotatorApp')
             'Karma'
         ];
 
-        var hpoIds = [];
-        var meshIds = [];
+        var allPubmeds;
+        $scope.filterByTerms = [];
 
-        $scope.hpos = [];
 
-        $scope.$watch(function () {
-            return $stateParams.hpo + $stateParams.mesh;
-        }, function (terms) {
-            if (!terms) {
-                return;
+        $scope.toggleFilter = function (term) {
+            console.log('term', term);
+            term.isFiltering = !term.isFiltering;
+            if (term.isFiltering) {
+                $scope.filterByTerms.push(term);
+            } else {
+                var index = $scope.filterByTerms.indexOf(term);
+                $scope.filterByTerms.splice(index, 1);
             }
-            hpoIds = $stateParams.hpo.split(',');
-            meshIds = $stateParams.mesh.split(',');
 
-            if (!searchbar.terms) {
-                // Load all the hpo terms and add them to the search bar
-                // @todo
-            }
-            go();
-        });
+            filterPubmedsByTerms($scope.filterByTerms);
+        };
 
+        function filterPubmedsByTerms(terms) {
+            console.log('Searching for terms', terms, allPubmeds);
+            $scope.pubmeds = _.filter(allPubmeds, function (pubmed) {
+                //for each tern, there exists a property that matches
+                var doesMatch = true;
+
+                _.each(terms, function (term) {
+
+                    if (term.type === 'hpo') {
+                        doesMatch = doesMatch && !! _.findWhere(pubmed.hpo, {
+                            id: term.id
+                        });
+                    }
+                    if (term.type === 'mesh') {
+                        doesMatch = doesMatch && !! _.findWhere(pubmed.mesh, {
+                            id: term.id
+                        });
+                    }
+                });
+                return doesMatch;
+            });
+        }
+
+
+        function search(terms) {
+            console.log('searching with terms', terms);
+            var hpoIds = _.reduce(terms, function (hpoIds, term) {
+                if (term.type === 'hpo') {
+                    hpoIds.push(term.id);
+                }
+                return hpoIds;
+            }, []);
+
+            var meshIds = _.reduce(terms, function (meshIds, term) {
+                if (term.type === 'mesh') {
+                    meshIds.push(term.id);
+                }
+                return meshIds;
+            }, []);
+
+            angular.copy(terms, searchbar.terms);
+            $http.get('phenopub/search?hpo=' + hpoIds.join(',') + '&mesh=' + meshIds.join(',')).success(function (data) {
+                _.each(data, function (pubmed) {
+                    allPubmeds = _.values(data);
+                    pubmed.id = pubmed.pmid;
+                    _.each(pubmed.hpo, function (hpo, key) {
+                        hpo.id = key;
+                        hpo.type = 'hpo';
+                        hpo.text = hpo.label + ' (HPO)';
+                    });
+                    _.each(pubmed.mesh, function (mesh, key) {
+                        mesh.id = key;
+                        mesh.type = 'mesh';
+                        mesh.text = mesh.label + ' (MeSH)';
+                    });
+                    pubmed.hpo = _.values(pubmed.hpo);
+                    pubmed.mesh = _.values(pubmed.mesh);
+                });
+                $scope.pubmeds = allPubmeds;
+
+                // Now load in all the pubmed info
+                // Get all the pmids for the first 10
+                var firstPubmeds = allPubmeds.slice(0, 10);
+                var pmids = _.map(firstPubmeds, function (pubmed) {
+                    return pubmed.pmid;
+                });
+                console.log('all pubmeds', allPubmeds);
+                $http.get('phenopub/search?pmid=' + pmids.join(',')).success(function (fullPubmeds) {
+                    _.each(fullPubmeds, function (fullPubmed, key) {
+                        var pubmed = _.findWhere(allPubmeds, {
+                            id: key
+                        });
+                        _.extend(pubmed, fullPubmed);
+                    });
+                });
+            });
+        }
+
+        search(angular.fromJson($stateParams.terms));
+
+        // Analyse pubmed results loop
         $scope.$watchCollection('pubmeds', function (pubmeds) {
             if (!pubmeds) {
                 return;
             }
 
-            _.each(pubmeds, function (pubmed) {
-                pubmed.hpo = _.values(pubmed.hpo);
-                pubmed.mesh = _.values(pubmed.mesh);
-            });
+            // $scope.hpos = [];
+            // $scope.meshes = [];
+
             // Get all the hpos
             $scope.hpos = _.reduce($scope.pubmeds, function (allHpos, pubmed) {
-                _.each(pubmed.hpo, function (hpo, id) {
-                    hpo.id = id;
+                _.each(pubmed.hpo, function (hpo) {
+
                     var existingHpo = _.findWhere(allHpos, {
                         id: hpo.id
                     });
@@ -61,12 +137,22 @@ angular.module('skeletomePubmedAnnotatorApp')
                         hpo.count = 1;
                         allHpos.push(hpo);
                     }
+
+                    // filtering?
+                    hpo.isFiltering = !! _.findWhere($scope.filterByTerms, {
+                        id: hpo.id,
+                        type: 'hpo'
+                    });
+
                 });
                 return allHpos;
             }, []);
 
             $scope.meshes = _.reduce($scope.pubmeds, function (allMeshes, pubmed) {
                 _.each(pubmed.mesh, function (mesh) {
+                    // mesh.type = 'mesh';
+                    // mesh.text = mesh.label + ' (MeSH)';
+
                     var existingMesh = _.findWhere(allMeshes, {
                         id: mesh.id
                     });
@@ -76,13 +162,25 @@ angular.module('skeletomePubmedAnnotatorApp')
                         mesh.count = 1;
                         allMeshes.push(mesh);
                     }
+
+                    // filtering?
+                    mesh.isFiltering = !! _.findWhere($scope.filterByTerms, {
+                        id: mesh.id,
+                        type: 'mesh'
+                    });
+
                 });
                 return allMeshes;
             }, []);
+
+
         });
 
-        function go() {
-            /*
+        // function go() {
+
+
+
+        /*
             $scope.pubmeds = _.values({
                 '0': {
                     'pmid': '22704020',
@@ -3233,8 +3331,6 @@ angular.module('skeletomePubmedAnnotatorApp')
                     }
                 }
             });*/
-            $http.get('phenopub/search?hpo=' + hpoIds.join(',') + '&mesh=' + meshIds.join(',')).success(function (data) {
-                $scope.pubmeds = _.values(data);
-            });
-        }
+
+        // }
     });

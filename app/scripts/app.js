@@ -16,19 +16,7 @@ angular.module('skeletomePubmedAnnotatorApp', [
         // You can have as many of these as you want.
         // You can only inject instances (not Providers)
         // into run blocks
-        $rootScope.hpos = [{
-            id: 1,
-            type: 'hpo',
-            text: 'Macrocephaly'
-        }, {
-            id: 2,
-            type: 'hpo',
-            text: 'Frontal Bossing'
-        }, {
-            id: 3,
-            type: 'hpo',
-            text: 'Short Stature'
-        }];
+
 
         $rootScope.doSearch = function (terms) {
             if (terms && terms.length) {
@@ -44,19 +32,20 @@ angular.module('skeletomePubmedAnnotatorApp', [
                     return;
                 }
 
-                var hpoIds = [];
-                var meshIds = [];
-                angular.forEach(terms, function (term) {
-                    if (term.type === 'hpo') {
-                        hpoIds.push(term.id);
-                    }
-                    if (term.type === 'mesh') {
-                        meshIds.push(term.id);
-                    }
-                });
+                // var hpoIds = [];
+                // var meshIds = [];
+                // angular.forEach(terms, function (term) {
+                //     if (term.type === 'hpo') {
+                //         hpoIds.push(term.id);
+                //     }
+                //     if (term.type === 'mesh') {
+                //         meshIds.push(term.id);
+                //     }
+                // });
                 $state.go('results', {
-                    hpo: hpoIds.join(','),
-                    mesh: meshIds.join(',')
+                    terms: angular.toJson(terms)
+                    // hpo: hpoIds.join(','),
+                    // mesh: meshIds.join(',')
                 });
             }
         };
@@ -138,7 +127,7 @@ angular.module('skeletomePubmedAnnotatorApp', [
                 templateUrl: 'views/search.html'
             })
             .state('results', {
-                url: '/results?hpo?mesh',
+                url: '/results?terms',
                 controller: 'ResultsCtrl',
                 templateUrl: 'views/results.html'
             })

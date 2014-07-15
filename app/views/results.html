@@ -1,4 +1,15 @@
 <div class="container">
+    <style>
+        .term.is-filtering {
+            background-color: #f1c40f;
+            color: white;
+        }
+        .term:hover {
+            background-color: #F9DA0E;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
     <div class="row">
         <!--       <div class="page-header">
             <h1>Phenotype
@@ -18,14 +29,20 @@
                         <div>
                             <input type="search" class="form-control" placeholder="Filter" ng-model="hpoSearch">
                         </div>
-                        <a ng-repeat="hpo in hpos | orderBy:'-count' | filter:hpoSearch | limitTo:10" style="text-align: right; display: block; background-color: #ffff00; padding: 10px; margin-bottom: 2px;" ui-sref="term({termId: hpo.id, termType: 'hpo', termName: hpo.linkText})">
+                        <a ng-repeat="hpo in hpos | orderBy:['-isFiltering', '-count'] | filter:hpoSearch " style="display: block; text-align: right; padding: 10px; margin-bottom: 2px;" ng-click="toggleFilter(hpo)" class="term" ng-class="{'is-filtering': hpo.isFiltering}">
                             <!-- <button class="btn btn-xs btn-secondary pull-right" ng-click="addTermToSearch(hpo)">Add</button> -->
                             {{ hpo.label }}
                             <span class="label label-default">{{ hpo.count }}</span>
+                            
+                            
+                            <span class="pull-left">
+                                <i class="fa fa-times" ng-show="hpo.isFiltering"></i>
+                                <i class="fa fa-plus" ng-hide="hpo.isFiltering"></i>    
+                            </span>
                         </a>
                         
                         <!-- <a class="list-group-item"> -->
-                        <button class="btn btn-link">Show More (37)</button>
+                        <button class="btn btn-link">Show More ({{ hpos.length }})</button>
                         <!-- </a> -->
                     <!-- </div> -->
                 <!-- </div> -->
@@ -35,8 +52,8 @@
                         <h3 class="panel-title">MESH Term</h3>
                     </div>
                     <ul class="list-group">
-                        <li class="list-group-item" ng-repeat="mesh in meshes">
-                            <button class="btn btn-xs btn-secondary pull-right" ng-click="addTermToSearch(hpo)">Add</button>
+                        <li class="list-group-item" ng-repeat="mesh in meshes | orderBy:'isFiltering' | orderBy:'-count' | limitTo:10">
+                            <button class="btn btn-xs btn-secondary pull-right" ng-click="toggleFilter(mesh)">Add</button>
                             <a ui-sref="term({termId: mesh.id, termType: 'mesh', termName: mesh.linkText})">{{ mesh.label }}</a>
                             <span class="label label-default">{{ mesh.count }}</span>
                         </li>
@@ -47,19 +64,37 @@
             </div>
 
             <div class="col-sm-8">
+                <div ng-repeat="term in searchbar.terms"  style="border-bottom: 1px solid #eee;">
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <!-- {{ term.type }} -->
+                            <i class="fa fa-stethoscope"></i>
+                        </a>
+                        <div class="media-body">
+                            <h4><a ui-sref="term({termId: term.id, termType: term.type, termName: term.text })">{{ term.label }}</a></h4>
+                        </div>
+                    </div>
+                </div>
                 <div ng-repeat="pubmed in pubmeds" style="border-bottom: 1px solid #eee;">
                     <!-- <div class="panel-heading"> -->
                     <div class="media">
                         <a class="pull-left" href="#">
+                            <i class="fa fa-book"></i>
                             <!-- <img class="media-object" src="..." alt="..."> -->
                         </a>
                         <div class="media-body">
                             <h4>
                                 <a ui-sref="pubmed({pubmedId: pubmed.pmid})">{{ pubmed.title }}</a>
                             </h4>
+                            <pre>{{ pubmed.authors }}</pre>
+                            <div>
+                                {{ pubmed.abstract }}
+                            </div>
                             <p style="margin-bottom: 16px;" class="text-muted">
                                 HPO {{ pubmed.hpo.length }} MESH {{ pubmed.mesh.length }}
                             </p>
+                            <span ng-repeat="hpo in pubmed.hpo">{{ hpo.label}}<br/></span>
+                            <span ng-repeat="mesh in pubmed.mesh">{{ mesh.label}}<br/></span>
                             <!-- </div> -->
                             <!-- <div class="panel-body"> -->
                             <p>
