@@ -119,12 +119,12 @@ p {
 .result p:last-child {
     margin-bottom: 0;
 }
-.result .result-hpo {
+.result-hpo {
     /*//color: #ACC7D0;*/
     color: #ccc;
     margin-bottom: 5px;
     text-transform: uppercase;
-    color: #D0CBBB;
+    color: #888;
     font-size: 12px;
 }
 

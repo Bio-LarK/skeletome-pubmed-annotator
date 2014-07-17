@@ -71,18 +71,19 @@
  -->
                                     <!-- </div> -->
                                     <!-- </div> -->
+
                                 </div>
                             </div>
 
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <div style="margin-bottom: 40px;">
+                        <div style="margin-bottom: 40px;" ng-show="$stateParams.termType === 'mesh'">
                             <h3 style="margin-bottom: 15px; color:#6E6E6E">HPO</h3>
                             <div class="result-hpo" ng-repeat="hpo in term.hpo | orderBy:'-ic'">
                                 <a ui-sref="term({termId:hpo.id, termType:'hpo', termName:hpo.label})">
-                        {{ hpo.label}}
-                    </a>
+                                    {{ hpo.label}}
+                                </a>
 
                                 <div>
                                     <!-- <span class="pull-left" style="margin-right: 10px; font-weight: bold; position: relative; top: -4px;;" tooltip="Information Content">IC</span> -->
@@ -97,7 +98,7 @@
                         </div>
 
                         <!-- <div class="col-sm-6"> -->
-                        <div style="border-top: 1px solid #eee; padding-top: 30px;">
+                        <div style="border-top: 1px solid #eee; padding-top: 30px;" ng-show="$stateParams.termType === 'hpo'">
                             <h3 style="margin-bottom: 15px; color:#6E6E6E">MeSH</h3>
                             <div class="result-hpo" ng-repeat="mesh in term.mesh" style="margin-bottom:10px">
                                 <a ui-sref="term({termId:mesh.id, termType:'mesh', termName:mesh.label})">

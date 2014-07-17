@@ -30,9 +30,20 @@ angular.module('skeletomePubmedAnnotatorApp')
         }
 
         termPromise.then(function (term) {
+            _.each(term.hpo, function (hpo, id) {
+                hpo.id = id;
+                hpo.ic = parseFloat(hpo.ic);
+            });
+
             term.mesh = _.values(term.mesh);
             term.hpo = _.values(term.hpo);
             $scope.term = term;
+
+
+            $scope.maxIc = _.reduce(term.hpo, function (maxIc, hpo) {
+                return Math.max(maxIc, hpo.ic);
+            }, 0);
+
 
             term.pubs = _.values(term.pubs);
             var firstPubmeds = term.pubs.slice(0, 3);
