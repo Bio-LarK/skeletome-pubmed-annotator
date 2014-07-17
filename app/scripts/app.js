@@ -135,36 +135,10 @@ angular.module('skeletomePubmedAnnotatorApp', [
             .state('term', {
                 url: '/term/:termId/:termType/:termName',
                 controller: 'TermCtrl',
-                resolve: {
-                    term: function ($http, $stateParams) {
-                        if ($stateParams.termType === 'hpo') {
-                            // /hpo?id=<<HPO ID>>
-                            return $http.get('phenopub/hpo?id=' + $stateParams.termId).then(function (response) {
-                                return response.data;
-                            });
-                        }
-                        if ($stateParams.termType === 'mesh') {
-                            return $http.get('phenopub/mesh?id=' + $stateParams.termId).then(function (response) {
-                                return response.data;
-                            });
-                        }
-
-                        return false;
-                    }
-                },
                 templateUrl: 'views/term.html'
             })
             .state('pubmed', {
                 url: '/pubmed/:pubmedId',
-                resolve: {
-                    pubmed: ['$http', '$stateParams',
-                        function ($http, $stateParams) {
-                            return $http.get('phenopub/pmid?id=' + $stateParams.pubmedId).then(function (response) {
-                                return response.data;
-                            });
-                        }
-                    ]
-                },
                 controller: 'PubmedCtrl',
                 templateUrl: 'views/pubmed.html'
             });

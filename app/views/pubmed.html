@@ -1,69 +1,104 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h2>{{ pubmed.title }}</h2>
-            <div>
-                <!-- authors -->
-                <h3>Authors</h3>
-                <ol>
-                    <li ng-repeat="(position, author) in pubmed.authors">
-                        {{ author }}
-                    </li>
-                </ol>
-	
-				<h3>Date</h3>
-				<p>{{ pubmed.date}}</p>
+<div class="container pubmed">
+    <style>
+    .pubmed h2 {
+        font-weight: 200;
+        line-height: 1.5;
+        margin-top: 0;
+    }
+    .fa-book {
+        font-size: 30px;
+        color: #E8C14F;
+        position: relative;
+        top: 10px;
+        margin-right: 5px;
+    }
+    h3 {
+        margin-top: 0;
+        font-size: 16px;
+        /*font-weight: 200;*/
+    }
+    .result-hpo {
+        /*color: #ACC7D0;*/
+        margin-bottom: 25px;
+        /*text-transform: uppercase;*/
+        color: #7B7B7B;
+        font-size: 14px;
+    }
+    .progress {
+        margin-top: 5px;
+        height: 10px;
+        box-shadow: none;
+    }
+    .progress-bar {
+        background-color: #F1E3B9;
+        box-shadow: none;
+    }
+    </style>
+    <div class="row" style="margin-top: 20px; padding-bottom: 50px;">
 
-				<h3>Issue</h3>
-				<p>{{ pubmed.issue }}</p>
+        <div class="col-sm-8">
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <i class="fa fa-book"></i>
+                </a>
+                <div class="media-body">
+                    <h2>{{ pubmed.title }}</h2>
+                    <p class="text-muted" style="font-style: italic;">
+                        {{ pubmed.journal }}, Issue {{ pubmed.issue }}, Vol {{ pubmed.volume }}, {{ pubmed.date }}
+                    </p>
+                    <p class="text-muted" style="margin-bottom: 20px;">
+                        <span ng-repeat="(key, author) in pubmed.authors">{{ author }}; &nbsp;</span>
+                    </p>
 
-				<h3>Journal</h3>
-				<p>{{ pubmed.journal }}</p>
+                    <div>
 
-				<h3>Volume</h3>
-				<p>{{ pubmed.volume }}</p>
+                    </div>
+
+                    <div style="line-height: 1.5;">
+                        {{ pubmed.abstract }}
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="col-sm-8">
-            <!-- <div class="panel panel-default"> -->
-            <!-- <div class="panel-heading"> -->
-            <h3 class="panel-title">Abstract</h3>
+        <div class="col-sm-4" style="padding-top: 10px;">
+            <!-- <div class="row">
+                <div class="col-sm-6"> -->
+            <div style="margin-bottom: 40px;">
+                <h3 style="margin-bottom: 15px; color:#6E6E6E">HPO</h3>
+                <div class="result-hpo" ng-repeat="hpo in pubmed.hpo | orderBy:'-ic'">
+                    <a ui-sref="term({termId:hpo.id, termType:'hpo', termName:hpo.label})">
+                        {{ hpo.label}}
+                    </a>
+    
+                    <div>
+                        <!-- <span class="pull-left" style="margin-right: 10px; font-weight: bold; position: relative; top: -4px;;" tooltip="Information Content">IC</span> -->
+                        <div class="progress" >
+                            <div class="progress-bar" role="progressbar" style="width: {{ hpo.ic / maxIc * 100 }}%;">
+                                <span class="sr-only">60% Complete</span>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- </div> -->
-            <!-- <div class="panel-body"> -->
-            {{ pubmed.abstract }}
-            <!-- </div> -->
-            <!-- </div> -->
-        </div>
-        <div class="col-sm-4">
-            <!-- <div class="panel panel-default"> -->
-            <!-- <div class="panel-heading"> -->
-            <h3 class="panel-title">HPO</h3>
-            <!-- </div> -->
-            <ul class="list-group">
-                <li ng-repeat="hpo in pubmed.hpo" class="list-group-item">
-                    <a ui-sref="term({termId: hpo.id, termType: 'hpo', termName: hpo.label})">
-						{{ hpo.label }}
-					</a>
-                </li>
-            </ul>
-            <!-- </div> -->
+                </div>
+            </div>
 
-            <!-- <div class="panel panel-default"> -->
-            <!-- <div class="panel-heading"> -->
-            <h3 class="panel-title">MESH</h3>
-            <!-- </div> -->
-            <!-- <div class="panel-body"> -->
-            <ul class="list-group">
-                <li ng-repeat="mesh in pubmed.mesh" class="list-group-item">
-                    <a ui-sref="term({termId: mesh.id, termType: 'mesh', termName: mesh.label})">
-						{{ mesh.label }}
-					</a>
-                </li>
-            </ul>
-            <!-- </div> -->
-            <!-- </div> -->
+            <!-- <div class="col-sm-6"> -->
+            <div style="border-top: 1px solid #eee; padding-top: 30px;">
+                <h3 style="margin-bottom: 15px; color:#6E6E6E">MeSH</h3>
+                <div class="result-hpo" ng-repeat="hpo in pubmed.mesh | orderBy:'-ic'" style="margin-bottom:10px">
+                    <a ui-sref="term({termId:hpo.id, termType:'hpo', termName:hpo.label})">
+                    {{ hpo.label}}
+                </a>
+                    <!-- <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ mesh.ic / maxIc * 100 }}%;">
+                            <span class="sr-only">60% Complete</span>
+                        </div>
+                    </div> -->
+                    <!-- </div>  -->
+                    <!-- </div> -->
+                </div>
+            </div>
         </div>
     </div>
 </div>

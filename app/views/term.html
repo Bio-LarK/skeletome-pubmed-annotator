@@ -1,45 +1,112 @@
 <div class="container">
+    <style>
+    h2 {
+        font-weight: 200;
+        line-height: 1.5;
+        margin-top: 0;
+    }
+    .fa-stethoscope {
+        font-size: 30px;
+        color: #E8C14F;
+        position: relative;
+        top: 10px;
+        margin-right: 5px;
+    }
+    h3 {
+        margin-top: 0;
+        font-size: 16px;
+        /*font-weight: 200;*/
+    }
+    </style>
     <div class="row">
         <div class="col-sm-12">
-            <h2>{{ term.label }} <small>{{ $stateParams.termType }}</small></h2>
 
-            <h3>Inforamtion Content</h3>
-            {{ term.ic }}
-    
-            <h3>Synonyms</h3>
-            <ul>
-                <li ng-repeat="synonym in term.synonyms">
-                    {{ synonym }}
-                </li>
-            </ul>
-        </div>
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <i class="fa fa-stethoscope"></i>
+                </a>
+                <div class="media-body">
+                    <div class="col-sm-8">
+                        <h2>{{ term.label }}</h2>
+                        <div ng-switch="$stateParams.termType">
+                            <p class="text-muted" ng-switch-when="hpo">
+                                HPO Term
+                            </p>
+                            <p class="text-muted" ng-switch-when="mesh">
+                                MeSH Term
+                            </p>
+                        </div>
 
-        <div class="col-sm-8">
-            <div ng-repeat="pubmed in term.pubs">
-                <h3><a ui-sref="pubmed({pubmedId: pubmed.pmid})">{{ pubmed.title }}</a></h3>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div>
-                <h3>MeSH</h3>
-                <ul>
-                    <li ng-repeat="mesh in term.mesh">
-                        <a ui-sref="term({termId: mesh.id, termType: 'mesh', termName: mesh.label})">
-                            {{ mesh.label }}
-                        </a>
-                    </li>
-                </ul>
-            </div>
 
-            <div>
-                <h3>HPO</h3>
-                <ul>
-                    <li ng-repeat="hpo in term.hpo">
-                        <a ui-sref="term({termId: hpo.id, termType: 'mesh', termName: mesh.label})">
-                            {{ mesh.label }}
-                        </a>
-                    </li>
-                </ul>
+                        <div ng-repeat="pubmed in term.pubs | limitTo:10" class="result">
+                            <!-- <div class="row">
+                        <div class="col-sm-9"> -->
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                                    <i class="fa fa-book result-icon"></i>
+                                    <!-- <img class="media-object" src="..." alt="..."> -->
+                                </a>
+                                <div class="media-body">
+                                    <h4>
+                                        <a ui-sref="pubmed({pubmedId: pubmed.pmid})">{{ pubmed.title }}</a>
+                                    </h4>
+                                    <div ng-hide="pubmed.abstract" style="text-align: center; font-size: 20px;">
+                                        <i class="fa fa-spin fa-spinner"></i>
+                                    </div>
+                                    <!-- <div class="row"> -->
+                                    <!-- <div class="col-sm-9"> -->
+
+
+                                    <p class="text-muted">
+                                        <span ng-repeat="(key, author) in pubmed.authors">{{ author }}; &nbsp;</span>
+                                    </p>
+
+                                    <!-- <pre>{{ pubmed.authors }}</pre> -->
+                                    <div>
+                                        {{ pubmed.abstract | characters:200 }}
+                                    </div>
+                                    <!-- <p style="margin-bottom: 16px;" class="text-muted">
+                                        HPO {{ pubmed.hpo.length }} MESH {{ pubmed.mesh.length }}
+                                    </p>
+ -->
+                                    <!-- </div> -->
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div style="margin-bottom: 40px;">
+                            <h3 style="margin-bottom: 15px; color:#6E6E6E">HPO</h3>
+                            <div class="result-hpo" ng-repeat="hpo in term.hpo | orderBy:'-ic'">
+                                <a ui-sref="term({termId:hpo.id, termType:'hpo', termName:hpo.label})">
+                        {{ hpo.label}}
+                    </a>
+
+                                <div>
+                                    <!-- <span class="pull-left" style="margin-right: 10px; font-weight: bold; position: relative; top: -4px;;" tooltip="Information Content">IC</span> -->
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: {{ hpo.ic / maxIc * 100 }}%;">
+                                            <span class="sr-only">60% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-sm-6"> -->
+                        <div style="border-top: 1px solid #eee; padding-top: 30px;">
+                            <h3 style="margin-bottom: 15px; color:#6E6E6E">MeSH</h3>
+                            <div class="result-hpo" ng-repeat="mesh in term.mesh" style="margin-bottom:10px">
+                                <a ui-sref="term({termId:mesh.id, termType:'mesh', termName:mesh.label})">
+                    {{ mesh.label}}
+                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
