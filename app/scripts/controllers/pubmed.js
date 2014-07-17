@@ -23,4 +23,9 @@ angular.module('skeletomePubmedAnnotatorApp')
         pubmed.mesh = _.values(pubmed.mesh);
         $scope.pubmed = pubmed;
 
+        // Calculate the maximum IC
+        $scope.maxIc = _.reduce(pubmed.hpo, function (maxIc, hpo) {
+            return Math.max(maxIc, hpo.ic);
+        }, 0);
+
     });
