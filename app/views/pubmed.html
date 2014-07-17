@@ -24,18 +24,13 @@
         /*color: #7B7B7B;
         font-size: 14px;*/
     }
-    .progress {
-        margin-top: 5px;
-        height: 10px;
-        box-shadow: none;
-    }
-    .progress-bar {
-        background-color: #F1E3B9;
-        box-shadow: none;
-    }
     </style>
-    <div class="row" style="margin-top: 20px; padding-bottom: 50px;">
 
+    <div ng-hide="pubmed" style="text-align: center; font-size: 30px;">
+        <i class="fa fa-spin fa-circle-o-notch"></i>
+    </div>
+
+    <div class="row" ng-show="pubmed">
         <div class="col-sm-8">
             <div class="media">
                 <a class="pull-left" href="#">
@@ -44,7 +39,7 @@
                 <div class="media-body">
                     <h2>{{ pubmed.title }}</h2>
                     <p class="text-muted" style="font-style: italic;">
-                        {{ pubmed.journal }}, Issue {{ pubmed.issue }}, Vol {{ pubmed.volume }}, {{ pubmed.date }}
+                        {{ pubmed.journal }}, {{ pubmed.pages }} Issue {{ pubmed.issue }}, Vol {{ pubmed.volume }}, {{ pubmed.date }}
                     </p>
                     <p class="text-muted" style="margin-bottom: 20px;">
                         <span ng-repeat="(key, author) in pubmed.authors">{{ author }}; &nbsp;</span>
@@ -70,10 +65,10 @@
                     <a ui-sref="term({termId:hpo.id, termType:'hpo', termName:hpo.label})">
                         {{ hpo.label}}
                     </a>
-    
+
                     <div>
                         <!-- <span class="pull-left" style="margin-right: 10px; font-weight: bold; position: relative; top: -4px;;" tooltip="Information Content">IC</span> -->
-                        <div class="progress" >
+                        <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: {{ hpo.ic / maxIc * 100 }}%;">
                                 <span class="sr-only">60% Complete</span>
                             </div>
@@ -86,8 +81,8 @@
             <!-- <div class="col-sm-6"> -->
             <div style="border-top: 1px solid #eee; padding-top: 30px;">
                 <h3 style="margin-bottom: 15px; color:#6E6E6E">MeSH</h3>
-                <div class="result-hpo" ng-repeat="hpo in pubmed.mesh | orderBy:'-ic'" style="margin-bottom:10px">
-                    <a ui-sref="term({termId:hpo.id, termType:'hpo', termName:hpo.label})">
+                <div class="result-hpo" ng-repeat="mesh in pubmed.mesh | orderBy:'-ic'" style="margin-bottom:10px">
+                    <a ui-sref="term({termId: mesh.id, termType:'mesh', termName: mesh.label})">
                     {{ hpo.label}}
                 </a>
                     <!-- <div class="progress">

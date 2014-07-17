@@ -34,6 +34,12 @@ angular.module('skeletomePubmedAnnotatorApp')
                 hpo.id = id;
                 hpo.ic = parseFloat(hpo.ic);
             });
+            _.each(term.pubs, function (pubmed) {
+                pubmed.id = pubmed.pmid;
+                // hpo.ic = parseFloat(hpo.ic);
+            });
+
+            console.log('pubmeds', term.pubs);
 
             term.mesh = _.values(term.mesh);
             term.hpo = _.values(term.hpo);
@@ -46,7 +52,7 @@ angular.module('skeletomePubmedAnnotatorApp')
 
 
             term.pubs = _.values(term.pubs);
-            var firstPubmeds = term.pubs.slice(0, 3);
+            var firstPubmeds = term.pubs.slice(0, 10);
             var pmids = _.reduce(firstPubmeds, function (pmids, pubmed) {
                 if (!pubmed.abstract) {
                     pmids.push(pubmed.pmid);

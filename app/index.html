@@ -29,7 +29,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <nav class="navbar navbar-default" role="navigation" ng-hide="$state.includes('search')">
+    <nav class="navbar navbar-default" role="navigation" ng-hide="$state.includes('search')" ng-cloak>
         <div class="container">
             
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -93,9 +93,9 @@
 
     <ui-view></ui-view>
 
-    <div class="footer">
+    <div class="footer" ng-hide="$state.includes('search')">
         <div class="container">
-            this is my footer
+            <!-- this is my footer -->
         </div>
     </div>
 

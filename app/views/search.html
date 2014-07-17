@@ -1,6 +1,24 @@
 <style>
     .jumbotron {
         text-align: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 50%;
+        height: 50%;
+        background-color: transparent;
+    }
+    .jumbotron h1 {
+        margin-bottom: 30px;
+        font-weight: 200;
+    }
+    .jumbotron small {
+        font-weight: 200;
+        margin-bottom: 20px;
+        font-size: 30px;
     }
     small {
         display: block;
@@ -10,13 +28,13 @@
     <div class="container">
         <h1>
             <small>Phenotype</small>
-            PubMed Annotator
+            PubMed Browser
         </h1>
         
-        <p class="lead">
-            <!-- <img src="images/yeoman.png" alt="I'm Yeoman"><br> -->
+        <!-- <p class="lead">
+            <img src="images/yeoman.png" alt="I'm Yeoman"><br>
             Lorem Ispum hpo la de da.
-        </p>
+        </p> -->
         <div ui-select2="searchSelect" ng-model="searchbar.terms" ng-change="doSearch(searchbar.terms)">
         </div>
         <!-- <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p> -->
