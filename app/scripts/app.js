@@ -9,7 +9,8 @@
  * Main module of the application.
  */
 angular.module('skeletomePubmedAnnotatorApp', [
-    'ui.router', 'restangular', 'ui.select2', 'angular-loading-bar'
+    'ui.router', 'restangular', 'ui.select2', 'angular-loading-bar',
+    'truncate'
 ])
     .run(function ($rootScope, $state, $stateParams, searchbar, $timeout, $http) { // instance-injector
         // This is an example of a run block.
