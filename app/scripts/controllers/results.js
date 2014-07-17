@@ -21,9 +21,11 @@ angular.module('skeletomePubmedAnnotatorApp')
         var allPubmeds;
         $scope.filterByTerms = [];
 
+        var PUBMED_DISPLAY_LIMIT = 10;
 
         $scope.toggleFilter = function (term) {
-            console.log('term', term);
+            // console.log('term', term);
+            $scope.hpoSearch = '';
             term.isFiltering = !term.isFiltering;
             if (term.isFiltering) {
                 $scope.filterByTerms.push(term);
@@ -36,7 +38,6 @@ angular.module('skeletomePubmedAnnotatorApp')
         };
 
         function filterPubmedsByTerms(terms) {
-            console.log('Searching for terms', terms, allPubmeds);
             $scope.pubmeds = _.filter(allPubmeds, function (pubmed) {
                 //for each tern, there exists a property that matches
                 var doesMatch = true;
@@ -94,22 +95,6 @@ angular.module('skeletomePubmedAnnotatorApp')
                     pubmed.mesh = _.values(pubmed.mesh);
                 });
                 $scope.pubmeds = allPubmeds;
-
-                // Now load in all the pubmed info
-                // Get all the pmids for the first 10
-                var firstPubmeds = allPubmeds.slice(0, 10);
-                var pmids = _.map(firstPubmeds, function (pubmed) {
-                    return pubmed.pmid;
-                });
-                console.log('all pubmeds', allPubmeds);
-                $http.get('phenopub/search?pmid=' + pmids.join(',')).success(function (fullPubmeds) {
-                    _.each(fullPubmeds, function (fullPubmed, key) {
-                        var pubmed = _.findWhere(allPubmeds, {
-                            id: key
-                        });
-                        _.extend(pubmed, fullPubmed);
-                    });
-                });
             });
         }
 
@@ -120,6 +105,30 @@ angular.module('skeletomePubmedAnnotatorApp')
             if (!pubmeds) {
                 return;
             }
+
+            // Get the descriptions for the first 10 pubmeds
+            // Now load in all the pubmed info
+            // Get all the pmids for the first few
+            var firstPubmeds = pubmeds.slice(0, PUBMED_DISPLAY_LIMIT);
+            var pmids = _.reduce(firstPubmeds, function (pmids, pubmed) {
+                if (!pubmed.abstract) {
+                    pmids.push(pubmed.pmid);
+                }
+                return pmids;
+            }, []);
+
+            // console.log('all pubmeds', allPubmeds);
+            if (pmids.length) {
+                $http.get('phenopub/search?pmid=' + pmids.join(',')).success(function (fullPubmeds) {
+                    _.each(fullPubmeds, function (fullPubmed, key) {
+                        var pubmed = _.findWhere(allPubmeds, {
+                            id: key
+                        });
+                        _.extend(pubmed, fullPubmed);
+                    });
+                });
+            }
+
 
             // $scope.hpos = [];
             // $scope.meshes = [];
