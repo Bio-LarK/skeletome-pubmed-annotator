@@ -13,7 +13,8 @@
     "angular-ui-router": "~0.2.10",
     "angular-ui-utils": "bower",
     "angular-loading-bar": "~0.4.3",
-    "fontawesome": "~4.1.0"
+    "fontawesome": "~4.1.0",
+    "angular-truncate": "sparkalow/angular-truncate"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.17",
