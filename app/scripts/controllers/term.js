@@ -19,14 +19,46 @@ angular.module('skeletomePubmedAnnotatorApp')
 
         if ($stateParams.termType === 'hpo') {
             // /hpo?id=<<HPO ID>>
-            termPromise = $http.get('phenopub/hpo?id=' + $stateParams.termId).then(function (response) {
+            termPromise = $http.get('http://118.138.241.167:8080/phenopub/hpo?id=' + $stateParams.termId).then(function (response) {
                 return response.data;
             });
         }
         if ($stateParams.termType === 'mesh') {
-            termPromise = $http.get('phenopub/mesh?id=' + $stateParams.termId).then(function (response) {
+            termPromise = $http.get('http://118.138.241.167:8080/phenopub/mesh?id=' + $stateParams.termId).then(function (response) {
                 return response.data;
             });
+        }
+
+        $scope.limit = 10;
+
+        $scope.loadMore = function () {
+            $scope.limit = Math.min($scope.limit + 10, $scope.term.pubs.length);
+            loadFullPubmeds($scope.term.pubs, $scope.limit);
+        };
+
+        function loadFullPubmeds(pubmeds, limit) {
+            // Get the descriptions for the first 10 pubmeds
+            // Now load in all the pubmed info
+            // Get all the pmids for the first few
+            var firstPubmeds = pubmeds.slice(0, limit);
+            var pmids = _.reduce(firstPubmeds, function (pmids, pubmed) {
+                if (!pubmed.abstract) {
+                    pmids.push(pubmed.pmid);
+                }
+                return pmids;
+            }, []);
+
+            // console.log('all pubmeds', $scope.allPubmeds);
+            if (pmids.length) {
+                $http.get('http://118.138.241.167:8080/phenopub/search?pmid=' + pmids.join(',')).success(function (fullPubmeds) {
+                    _.each(fullPubmeds, function (fullPubmed, key) {
+                        var pubmed = _.findWhere(pubmeds, {
+                            id: key
+                        });
+                        _.extend(pubmed, fullPubmed);
+                    });
+                });
+            }
         }
 
         termPromise.then(function (term) {
@@ -52,26 +84,28 @@ angular.module('skeletomePubmedAnnotatorApp')
 
 
             term.pubs = _.values(term.pubs);
-            var firstPubmeds = term.pubs.slice(0, 10);
-            var pmids = _.reduce(firstPubmeds, function (pmids, pubmed) {
-                if (!pubmed.abstract) {
-                    pmids.push(pubmed.pmid);
-                }
-                return pmids;
-            }, []);
 
-            // console.log('all pubmeds', allPubmeds);
-            if (pmids.length) {
-                $http.get('phenopub/search?pmid=' + pmids.join(',')).success(function (fullPubmeds) {
-                    _.each(fullPubmeds, function (fullPubmed, key) {
-                        var pubmed = _.findWhere(term.pubs, {
-                            id: key
-                        });
-                        console.log('extending', pubmed, 'with', fullPubmed);
-                        _.extend(pubmed, fullPubmed);
-                    });
-                });
-            }
+            loadFullPubmeds(term.pubs, 10);
+            // var firstPubmeds = term.pubs.slice(0, 10);
+            // var pmids = _.reduce(firstPubmeds, function (pmids, pubmed) {
+            //     if (!pubmed.abstract) {
+            //         pmids.push(pubmed.pmid);
+            //     }
+            //     return pmids;
+            // }, []);
+
+            // // console.log('all pubmeds', allPubmeds);
+            // if (pmids.length) {
+            //     $http.get('http://118.138.241.167:8080/phenopub/search?pmid=' + pmids.join(',')).success(function (fullPubmeds) {
+            //         _.each(fullPubmeds, function (fullPubmed, key) {
+            //             var pubmed = _.findWhere(term.pubs, {
+            //                 id: key
+            //             });
+            //             console.log('extending', pubmed, 'with', fullPubmed);
+            //             _.extend(pubmed, fullPubmed);
+            //         });
+            //     });
+            // }
         });
 
 

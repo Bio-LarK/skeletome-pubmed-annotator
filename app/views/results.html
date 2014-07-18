@@ -6,7 +6,7 @@
         text-decoration: none;
     }*/    
     </style>
-    <div class="row" style="padding-top: 20px;">
+    <div class="row">
 
         <!--       <div class="page-header">
             <h1>Phenotype
@@ -18,6 +18,11 @@
         </div> -->
         <div ng-hide="pubmeds" style="text-align: center; font-size: 50px;">
             <i class="fa fa-spin fa-circle-o-notch"></i>
+        </div>
+        <div class="row" ng-show="pubmeds && allPubmeds.length === pubmeds.length">
+            <div class="col-sm-8 col-sm-offset-3" style="margin-bottom: 30px;">
+                1-{{ pubmedDisplayLimit }} of {{ allPubmeds.length }} results for <span ng-repeat="term in searchbar.terms" style="font-weight: bold;">"{{ term.label }}"&nbsp;</span>
+            </div>
         </div>
         <div class="row" ng-show="pubmeds">
             <div class="col-sm-3">
@@ -41,7 +46,7 @@
                             </span>
                         </a>
                     </div>
-                    <a href class="filters-more">Show All ({{ hpos.length }})</a>
+                    <!-- <a href class="filters-more">{{ hpos.length }}</a> -->
                 </div>
                 <div class="filters">
                     <div class="input-group filtersearch">
@@ -62,7 +67,7 @@
                             </span>
                         </a>
                     </div>
-                    <a href class="filters-more">Show All ({{ meshes.length }})</a>
+                    <!-- <a href class="filters-more">Show All ({{ meshes.length }})</a> -->
                 </div>
             </div>
 
@@ -90,7 +95,7 @@
                     </div>
                 </div>
 
-                <div ng-repeat="pubmed in pubmeds | limitTo:10" class="result">
+                <div ng-repeat="pubmed in pubmeds | limitTo:pubmedDisplayLimit" class="result">
                     <!-- <div class="row">
                         <div class="col-sm-9"> -->
 
@@ -140,12 +145,13 @@
                             </div>
                             <!-- <div ng-repeat="mesh in pubmed.mesh">{{ mesh.label}}</div> -->
                         </div>
-
                     </div>
-
                 </div>
-                <!-- </div>
-                </div> -->
+                
+                <button class="btn btn-default form-control" ng-click="loadMore()" ng-show="pubmedDisplayLimit < pubmeds.length" style="margin-top: 20px;">
+                    Load More
+                </button>
+
             </div>
         </div>
     </div>

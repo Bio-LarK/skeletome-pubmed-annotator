@@ -63,6 +63,37 @@ module.exports = function (grunt) {
             }
         },
 
+        'gh-pages': {
+            options: {
+                base: '<%= yeoman.dist %>'
+            },
+            src: ['**']
+        },
+
+        rsync: {
+            options: {
+                args: ['--verbose'],
+                exclude: ['.git*', '*.scss', 'node_modules'],
+                recursive: true
+            },
+            // dist: {
+            //     options: {
+            //         src: './',
+            //         dest: '../dist'
+            //     }
+            // },
+            phenotype: {
+                options: {
+                    src: '<%= yeoman.dist %>/',
+                    dest: 'craig@phenotype:/var/www/browser',
+                    ssh: true,
+                    rescursive: true,
+                    // syncDestIgnoreExcl: true,
+                    // compareMode: 'checksum'
+                }
+            },
+        },
+
         php: {
             options: {
                 port: 8000,
@@ -366,6 +397,16 @@ module.exports = function (grunt) {
                     cwd: 'bower_components/bootstrap/dist',
                     src: 'fonts/*',
                     dest: '<%= yeoman.dist %>'
+                }, {
+                    expand: true,
+                    cwd: 'bower_components/fontawesome',
+                    src: 'fonts/*',
+                    dest: '<%= yeoman.dist %>'
+                }, {
+                    expand: true,
+                    cwd: 'bower_components/select2',
+                    src: ['select2.css', 'select2.png', 'select2x2.png', 'select2-spinner.gif'],
+                    dest: '<%= yeoman.dist %>/styles'
                 }]
             },
             styles: {
@@ -446,6 +487,11 @@ module.exports = function (grunt) {
         'filerev',
         'usemin',
         'htmlmin'
+    ]);
+
+    grunt.registerTask('deploy', [
+        'build',
+        'rsync'
     ]);
 
     grunt.registerTask('default', [

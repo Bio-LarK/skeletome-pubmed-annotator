@@ -41,7 +41,7 @@
                         </div>
 
 
-                        <div ng-repeat="pubmed in term.pubs | limitTo:10" class="result">
+                        <div ng-repeat="pubmed in term.pubs | limitTo:limit" class="result">
                             <!-- <div class="row">
                         <div class="col-sm-9"> -->
                             <div class="media">
@@ -79,8 +79,13 @@
                             </div>
 
                         </div>
+                        
+                        <button class="btn btn-default form-control" ng-click="loadMore()" ng-show="limit < term.pubs.length" style="margin-top: 20px;">
+                            Load More
+                        </button>
+
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" style="margin-top: 20px;">
                         <div style="margin-bottom: 40px; border-top: 1px solid #eee; padding-top: 30px;" ng-show="$stateParams.termType === 'mesh'">
                             <h3 style="margin-bottom: 15px; color:#6E6E6E">HPO</h3>
                             <div class="result-hpo" ng-repeat="hpo in term.hpo | orderBy:'-ic'">

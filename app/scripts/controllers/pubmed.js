@@ -15,7 +15,7 @@ angular.module('skeletomePubmedAnnotatorApp')
             'Karma'
         ];
 
-        $http.get('phenopub/pmid?id=' + $stateParams.pubmedId).then(function (response) {
+        $http.get('http://118.138.241.167:8080/phenopub/pmid?id=' + $stateParams.pubmedId).then(function (response) {
             // Transform the data into standard format
             var pubmed = response.data;
             _.each(pubmed.hpo, function (hpo, id) {

@@ -80,10 +80,10 @@ angular.module('skeletomePubmedAnnotatorApp', [
             query: function (options) {
                 console.log('options', options);
 
-                $http.get('phenopub/autocomplete?start=' + options.term).success(function (data) {
+                $http.get('http://118.138.241.167:8080/phenopub/autocomplete?start=' + options.term).success(function (data) {
                     var meshes = _.map(data.MESH, function (mesh) {
                         mesh.type = 'mesh';
-                        mesh.text = mesh.label + ' (MESH)';
+                        mesh.text = mesh.label + ' (MeSH)';
                         return mesh;
                     });
                     var hpos = _.map(data.HPO, function (hpo) {
@@ -113,9 +113,9 @@ angular.module('skeletomePubmedAnnotatorApp', [
         $rootScope.searchbar = searchbar;
 
     })
-    .config(function ($stateProvider, $urlRouterProvider, RestangularProvider) {
+    .config(function ($stateProvider, $urlRouterProvider) {
         console.log('ho there');
-        RestangularProvider.setBaseUrl('phenopub');
+        // RestangularProvider.setBaseUrl('http://118.138.241.167:8080/phenopub');
 
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise('/');
