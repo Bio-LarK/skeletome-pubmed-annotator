@@ -1,53 +1,55 @@
 <style>
-    .jumbotron {
-        text-align: center;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        width: 50%;
-        height: 50%;
-        background-color: transparent;
-    }
-    .jumbotron h1 {
-        margin-bottom: 30px;
-        font-weight: 200;
-        font-size: 45px;
-    }
-    .jumbotron small {
-        font-weight: 200;
-        margin-top: 10px;
-        font-size: 20px;
-    }
-    small {
-        display: block;
-    }
-    .select2-container-multi .select2-choices {
-        border: 1px solid #ddd;
-        background-image: none;
-        padding: 10px 15px;
-        border-radius: 3px;
-    }
+.jumbotron {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    background-color: transparent;
+}
+.jumbotron h1 {
+    margin-bottom: 30px;
+    font-weight: 200;
+    font-size: 45px;
+}
+.jumbotron small {
+    font-weight: 200;
+    margin-top: 10px;
+    font-size: 20px;
+}
+small {
+    display: block;
+}
+.select2-container-multi .select2-choices {
+    border: 1px solid #ddd;
+    background-image: none;
+    padding: 10px 15px;
+    border-radius: 3px;
+}
 </style>
 <div style="border-top: 20px solid #f1c40f">
-    
-</div>
-<div class="jumbotron">
-    <div class="container">
-        <h1 >
-            <span></span>
-            PubMed Browser
-            <small>Human Phenotype Ontology</small>
-        </h1>
-        
-        <!-- <p class="lead">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>
+                <span></span>
+                PubMed Browser
+                <small>Human Phenotype Ontology</small>
+            </h1>
+
+            <!-- <p class="lead">
             <img src="images/yeoman.png" alt="I'm Yeoman"><br>
             Lorem Ispum hpo la de da.
         </p> -->
-        <div ui-select2="searchSelect" ng-model="searchbar.terms" ng-change="doSearch(searchbar.terms)">
+            <div ui-select2="searchSelect" ng-model="searchbar.terms" ng-change="doSearch(searchbar.terms)">
+            </div>
+            <!-- <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p> -->
         </div>
-        <!-- <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p> -->
     </div>
+    <footer>
+        this is my footer
+    </footer>
 </div>

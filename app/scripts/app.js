@@ -114,9 +114,6 @@ angular.module('skeletomePubmedAnnotatorApp', [
 
     })
     .config(function ($stateProvider, $urlRouterProvider) {
-        console.log('ho there');
-        // RestangularProvider.setBaseUrl('http://118.138.241.167:8080/phenopub');
-
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise('/');
         //
@@ -142,6 +139,4 @@ angular.module('skeletomePubmedAnnotatorApp', [
                 controller: 'PubmedCtrl',
                 templateUrl: 'views/pubmed.html'
             });
-
-        console.log('why dont my states work');
     });

@@ -241,9 +241,38 @@ module.exports = function (grunt) {
             app: {
                 src: ['<%= yeoman.app %>/index.html'],
                 ignorePath: new RegExp('^<%= yeoman.app %>/|../')
+            },
+            test: {
+                src: 'test/karma.conf.js',
+                fileTypes: {
+                    js: {
+                        block: /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi,
+                        detect: {
+                            // js: /'.*\.js'/gi
+                        },
+                        replace: {
+                            // js: '"{{filePath}}",',
+                            js: function (filePath) {
+                                filePath = filePath.replace('../', '');
+                                return '\'' + filePath + '\',';
+                            }
+                        }
+                    }
+                }
             }
         },
 
+        /*
+
+        detect: {
+        js: /<script.*src=['"](.+)['"]>/gi,
+        css: /<link.*href=['"](.+)['"]/gi
+      },
+      replace: {
+        js: '<script src="{{filePath}}"></script>',
+        css: '<link rel="stylesheet" href="{{filePath}}" />'
+      }
+      */
         // Renames files for browser caching purposes
         filerev: {
             dist: {
