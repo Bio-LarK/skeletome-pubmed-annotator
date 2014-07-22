@@ -15,7 +15,8 @@
     "angular-loading-bar": "~0.4.3",
     "fontawesome": "~4.1.0",
     "angular-truncate": "sparkalow/angular-truncate",
-    "angular-promise-tracker": "~2.0.1"
+    "angular-promise-tracker": "~2.0.1",
+    "animate.css": "~3.2.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.17",

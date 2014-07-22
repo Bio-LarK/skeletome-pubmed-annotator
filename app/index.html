@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="bower_components/select2/select2.css" />
     <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css" />
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -23,13 +24,13 @@
     <!-- <link rel="stylesheet" href="http://basehold.it/21"> -->
 </head>
 
-<body ng-app="skeletomePubmedAnnotatorApp">
+<body ng-app="skeletomePubmedAnnotatorApp" ng-cloak>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <nav class="navbar navbar-default" role="navigation" ng-hide="$state.includes('search')" ng-cloak>
+    <nav class="navbar navbar-default" role="navigation" ng-hide="!$state.name || $state.includes('search')" ng-cloak>
         <div class="container">
             
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -93,9 +94,10 @@
 
     <ui-view></ui-view>
 
-    <div class="footer" ng-hide="$state.includes('search')">
+    <div class="footer" ng-hide="!$state.name  || $state.includes('search')" ng-cloak>
         <div class="container">
-            <!-- this is my footer -->
+        this?
+            <!-- this is my footer --> 
         </div>
     </div>
 

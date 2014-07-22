@@ -18,7 +18,6 @@ angular.module('skeletomePubmedAnnotatorApp', [
         // You can only inject instances (not Providers)
         // into run blocks
 
-
         $rootScope.doSearch = function (terms) {
             if (terms && terms.length) {
 
@@ -32,44 +31,11 @@ angular.module('skeletomePubmedAnnotatorApp', [
                     });
                     return;
                 }
-
-                // var hpoIds = [];
-                // var meshIds = [];
-                // angular.forEach(terms, function (term) {
-                //     if (term.type === 'hpo') {
-                //         hpoIds.push(term.id);
-                //     }
-                //     if (term.type === 'mesh') {
-                //         meshIds.push(term.id);
-                //     }
-                // });
                 $state.go('results', {
                     terms: angular.toJson(terms)
-                    // hpo: hpoIds.join(','),
-                    // mesh: meshIds.join(',')
                 });
             }
         };
-
-
-
-        $rootScope.$on('$stateChangeStart',
-            function (event, toState) {
-                console.log('toState', toState);
-                if (toState.name !== 'results') {
-                    searchbar.terms.length = 0;
-                } else {
-                    console.log('focus!');
-                    $timeout(function () {
-                        console.log('focus bnow!!');
-                        $('#global-search').select2('focus', true);
-                    });
-                }
-                // event.preventDefault();
-                // transitionTo() promise will be rejected with 
-                // a 'transition prevented' error
-            });
-
 
         $rootScope.searchSelect = {
             placeholder: 'Search for HPO, Mesh, Title, Author',
