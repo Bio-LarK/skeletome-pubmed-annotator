@@ -20,6 +20,11 @@ a {
 @media (min-width: 1200px) { .home-search { width: 800px; } }
 
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+
 
 #loading-bar .bar {
 	background: #f1c40f !important;
