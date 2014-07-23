@@ -55,7 +55,7 @@
                         </span>
                     </div>
                     <div class="list-group">
-                        <a class="list-group-item filter" ng-repeat="mesh in meshes | orderBy:'isFiltering' | orderBy:'-count' | limitTo:10">
+                        <a class="list-group-item filter" ng-repeat="mesh in meshes | orderBy:['-isFiltering', '-count'] | filter:meshSearch | limitTo: 10" ng-click="toggleFilter(mesh)" class="list-group-item filter" ng-class="{'is-filtering': mesh.isFiltering}" href>
                             
                             {{ mesh.label }}
                             <span class="label">{{ mesh.count }}</span>
