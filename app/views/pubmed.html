@@ -5,7 +5,7 @@
         line-height: 1.5;
         margin-top: 0;
     }
-    .fa-book {
+    .pubmed-icon.fa-book {
         font-size: 30px;
         color: #E8C14F;
         position: relative;
@@ -34,7 +34,7 @@
         <div class="col-sm-8">
             <div class="media">
                 <a class="pull-left" href="#">
-                    <i class="fa fa-book"></i>
+                    <i class="pubmed-icon fa fa-book"></i>
                 </a>
                 <div class="media-body">
                     <h2>{{ pubmed.title }}</h2>
@@ -83,7 +83,7 @@
                 <h3 style="margin-bottom: 15px; color:#6E6E6E">MeSH</h3>
                 <div class="result-hpo" ng-repeat="mesh in pubmed.mesh | orderBy:'-ic'" style="margin-bottom:10px">
                     <a ui-sref="term({termId: mesh.id, termType:'mesh', termName: mesh.label})">
-                    {{ hpo.label}}
+                    {{ mesh.label}}
                 </a>
                     <!-- <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: {{ mesh.ic / maxIc * 100 }}%;">
