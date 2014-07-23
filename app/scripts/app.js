@@ -40,7 +40,7 @@ angular.module('skeletomePubmedAnnotatorApp', [
         $rootScope.searchSelect = {
             placeholder: 'Search for HPO, Mesh, Title, Author',
             dropdownAutoWidth: true,
-            width: 'element',
+            width: 'resolve',
             multiple: true,
             minimumInputLength: 2,
             query: function (options) {
