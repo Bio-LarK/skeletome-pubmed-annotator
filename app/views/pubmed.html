@@ -63,7 +63,7 @@
                 <h3 style="margin-bottom: 15px; color:#6E6E6E">HPO</h3>
                 <div class="result-hpo" ng-repeat="hpo in pubmed.hpo | orderBy:'-ic'">
                     <a ui-sref="term({termId:hpo.id, termType:'hpo', termName:hpo.label})">
-                        {{ hpo.label }} <span class="term-ic">- IC {{ hpo.ic | number:3 }}</span>
+                        {{ hpo.label}}
                     </a>
 
                     <div>
