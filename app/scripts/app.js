@@ -18,24 +18,7 @@ angular.module('skeletomePubmedAnnotatorApp', [
         // You can only inject instances (not Providers)
         // into run blocks
 
-        $rootScope.doSearch = function (terms) {
-            if (terms && terms.length) {
 
-                var publication = _.findWhere(terms, {
-                    type: 'pubmed'
-                });
-
-                if (publication) {
-                    $state.go('pubmed', {
-                        pubmedId: publication.id
-                    });
-                    return;
-                }
-                $state.go('results', {
-                    terms: angular.toJson(terms)
-                });
-            }
-        };
 
         $rootScope.searchSelect = {
             placeholder: 'Search for HPO, Mesh, Title, Author',

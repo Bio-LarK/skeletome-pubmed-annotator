@@ -73,23 +73,39 @@
 
             <div class="col-sm-8">
                 <div ng-hide="filterByTerms.length">
-                    <div ng-repeat="term in searchbar.terms" class="result">
+                    <div class="result" ng-show="searchbar.groupedTerms.hpo.length">
                         <div class="media">
                             <a class="pull-left" href="#">
                                 <!-- {{ term.type }} -->
                                 <i class="fa fa-stethoscope result-icon"></i>
                             </a>
                             <div class="media-body">
-                                <h4><a ui-sref="term({termId: term.id, termType: term.type, termName: term.text })">{{ term.label }}</a>
+                                <h4 style="display: inline-block;" ng-repeat="hpo in searchbar.groupedTerms.hpo">
+                                    <a ui-sref="term({termId: hpo.id, termType: 'hpo', termName: hpo.text })">
+                                        {{ hpo.label }}</a><span ng-show="$index != searchbar.groupedTerms.hpo.length - 1">,</span>&nbsp;
                                 </h4>
-                                <div ng-switch="term.type">
-                                    <p class="text-muted" ng-switch-when="hpo">
-                                        HPO Term
-                                    </p>
-                                    <p class="text-muted" ng-switch-when="mesh">
-                                        MeSH Term
-                                    </p>
-                                </div>
+                                <p class="text-muted" >
+                                   HPO Term<span ng-show="searchbar.groupedTerms.hpo.length">s</span>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div ng-show="searchbar.groupedTerms.mesh.length" class="result">
+                        <div class="media" >
+                            <a class="pull-left" href="#">
+                                <!-- {{ term.type }} -->
+                                <i class="fa fa-stethoscope result-icon"></i>
+                            </a>
+                            <div class="media-body">
+                                <h4 style="display: inline-block;" ng-repeat="mesh in searchbar.groupedTerms.mesh">
+                                    <a ui-sref="term({termId: mesh.id, termType: 'mesh', termName: mesh.text })">
+                                        {{ mesh.label }}</a><span ng-show="$index != searchbar.groupedTerms.mesh.length - 1">,</span>&nbsp;
+                                </h4>
+                                <p class="text-muted" >
+                                    MeSH Term<span ng-show="searchbar.groupedTerms.mesh.length">s</span>
+                                </p>
                             </div>
                         </div>
                     </div>
