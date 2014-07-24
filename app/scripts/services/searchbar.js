@@ -47,14 +47,12 @@ angular.module('skeletomePubmedAnnotatorApp')
                 searchbar.groupedTerms.mesh = _.where(terms, {
                     type: 'mesh'
                 });
-            }
-            if (terms) {
                 // console.log('no TEST!');
-                if (terms.length === 0) {
-                    // console.log('no length');
-                    $state.go('search');
-                    return;
-                }
+                // if (terms.length === 0) {
+                //     // console.log('no length');
+                //     $state.go('search');
+                //     return;
+                // }
                 var publication = _.findWhere(terms, {
                     type: 'pubmed'
                 });
@@ -65,10 +63,19 @@ angular.module('skeletomePubmedAnnotatorApp')
                     });
                     return;
                 }
-                $state.go('results', {
-                    terms: angular.toJson(terms)
-                });
+
+                if (terms.length) {
+                    $state.go('results', {
+                        terms: angular.toJson(terms)
+                    });
+                } else {
+                    if ($state.current.name === 'results') {
+                        $state.go('search');
+                    }
+                }
+
             }
+
         };
 
 

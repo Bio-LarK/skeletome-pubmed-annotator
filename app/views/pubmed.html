@@ -37,7 +37,9 @@
                     <i class="pubmed-icon fa fa-book"></i>
                 </a>
                 <div class="media-body">
-                    <h2>{{ pubmed.title }}</h2>
+                    <h2>{{ pubmed.title }} 
+                        <a ng-href="http://pubmed-browser.human-phenotype-ontology.org:8080/phenopub/pmid/download?id={{ pubmed.id }}" download class="btn btn-default">Download</a>
+                    </h2>
                     <p class="text-muted" style="font-style: italic;">
                         {{ pubmed.journal }}, {{ pubmed.pages }} Issue {{ pubmed.issue }}, Vol {{ pubmed.volume }}, {{ pubmed.date }}
                     </p>

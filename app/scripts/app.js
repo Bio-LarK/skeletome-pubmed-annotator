@@ -29,7 +29,8 @@ angular.module('skeletomePubmedAnnotatorApp', [
             query: function (options) {
                 console.log('options', options);
 
-                $http.get('http://118.138.241.167:8080/phenopub/autocomplete?start=' + options.term).success(function (data) {
+                // encodeURIComponent(options.term).replace(/%20/g, "+");
+                $http.get('http://118.138.241.167:8080/phenopub/autocomplete?start=' + encodeURIComponent(options.term).replace(/%20/g, '+')).success(function (data) {
                     var meshes = _.map(data.MESH, function (mesh) {
                         mesh.type = 'mesh';
                         mesh.text = mesh.label + ' (MeSH)';
