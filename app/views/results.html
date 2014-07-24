@@ -16,12 +16,12 @@
             <div ui-select2="searchSelect" ng-model="search">
             </div>
         </div> -->
-        <div ng-hide="pubmeds" style="text-align: center; font-size: 50px;">
+        <div ng-show="!pubmeds" style="text-align: center; font-size: 50px;">
             <i class="fa fa-spin fa-circle-o-notch"></i>
         </div>
-        <div class="row" ng-show="pubmeds && allPubmeds.length === pubmeds.length">
+        <div class="row" ng-show="searchbar.terms.length && pubmeds && allPubmeds.length === pubmeds.length">
             <div class="col-sm-8 col-sm-offset-3" style="margin-bottom: 30px;">
-                1-{{ pubmedDisplayLimit }} of {{ allPubmeds.length }} results for <span ng-repeat="term in searchbar.terms" style="font-weight: bold;">"{{ term.label }}"&nbsp;</span>
+                <span ng-show="pubmeds.length">1-{{ pubmedDisplayLimit }} of </span>{{ allPubmeds.length }} results for <span ng-repeat="term in searchbar.terms" style="font-weight: bold;">"{{ term.label }}"&nbsp;</span>
             </div>
         </div>
         <div class="row" ng-show="pubmeds">
@@ -73,7 +73,7 @@
 
             <div class="col-sm-8">
                 <div ng-hide="filterByTerms.length">
-                    <div class="result" ng-show="searchbar.groupedTerms.hpo.length">
+                    <div class="result" ng-if="searchbar.groupedTerms.hpo.length">
                         <div class="media">
                             <a class="pull-left" href="#">
                                 <!-- {{ term.type }} -->
@@ -92,7 +92,7 @@
 
                     </div>
 
-                    <div ng-show="searchbar.groupedTerms.mesh.length" class="result">
+                    <div ng-if="searchbar.groupedTerms.mesh.length" class="result">
                         <div class="media" >
                             <a class="pull-left" href="#">
                                 <!-- {{ term.type }} -->

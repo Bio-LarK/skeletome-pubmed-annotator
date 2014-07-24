@@ -21,16 +21,30 @@ angular.module('skeletomePubmedAnnotatorApp')
         };
 
         $rootScope.$on('$stateChangeStart', function (event, toState) {
-            console.log('toState', toState);
             if (toState.name !== 'results') {
                 searchbar.terms.length = 0;
             }
+        });
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            console.log('SUCCESS!', toState);
 
+            var timeout = 2000;
+            if (fromState.name) {
+                timeout = 100;
+            }
+            if (toState.name === 'search') {
+                $timeout(function () {
+                    $('#global-search').select2('close', true);
+                });
+                $timeout(function () {
+                    $('#front-search').select2('focus', true);
+                }, timeout);
+            }
             if (toState.name === 'results') {
-                console.log('focus!');
+                console.log('focus!!!!');
                 $timeout(function () {
                     $('#global-search').select2('focus', true);
-                });
+                }, 100);
             }
         });
 
@@ -64,14 +78,10 @@ angular.module('skeletomePubmedAnnotatorApp')
                     return;
                 }
 
-                if (terms.length) {
+                if (terms.length || $state.current.name === 'results') {
                     $state.go('results', {
                         terms: angular.toJson(terms)
                     });
-                } else {
-                    if ($state.current.name === 'results') {
-                        $state.go('search');
-                    }
                 }
 
             }

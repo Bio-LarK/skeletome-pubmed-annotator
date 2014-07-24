@@ -32,7 +32,7 @@
                     <div class="col-sm-8">
                         <h2>{{ term.label }}
                             <small ng-show="term.ic" class="term-ic">IC {{ term.ic | number:3 }}</small>
-                            <a ng-href="http://pubmed-browser.human-phenotype-ontology.org:8080/phenopub/{{ $stateParams.termType }}/download?id={{ $stateParams.termId }}" download class="btn btn-default">Download</a>
+                            <a ng-show="$stateParams.termType === 'mesh'" ng-href="http://pubmed-browser.human-phenotype-ontology.org:8080/phenopub/mesh/download?id={{ $stateParams.termId }}" download class="btn btn-default">Download</a>
                         </h2>
                         <div ng-switch="$stateParams.termType">
                             <p class="text-muted" ng-switch-when="hpo">
@@ -77,8 +77,9 @@
                             <h3 style="margin-bottom: 15px; color:#6E6E6E">HPO</h3>
                             <div class="result-hpo" ng-repeat="hpo in term.hpo | orderBy:'-ic'">
                                 <a ui-sref="term({termId:hpo.id, termType:'hpo', termName:hpo.label})">
-                                    {{ hpo.label }} <span class="term-ic">- IC {{ hpo.ic | number:3 }}</span>
+                                    {{ hpo.label }}
                                 </a>
+                                <span class="term-ic">- IC {{ hpo.ic | number:3 }}</span>
 
                                 <div>
                                     <!-- <span class="pull-left" style="margin-right: 10px; font-weight: bold; position: relative; top: -4px;;" tooltip="Information Content">IC</span> -->

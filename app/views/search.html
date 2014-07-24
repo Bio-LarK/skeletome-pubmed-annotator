@@ -7,7 +7,7 @@
     left: 0;
     right: 0;
     margin: auto;
-    width: 50%;
+    /*width: 50%;*/
     height: 50%;
     background-color: transparent;
 }
@@ -50,8 +50,13 @@ footer {
             <img src="images/yeoman.png" alt="I'm Yeoman"><br>
             Lorem Ispum hpo la de da.
         </p> -->
-            <div ui-select2="searchSelect" ng-model="searchbar.terms" ng-change="doSearch(searchbar.terms)">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div id="front-search" ui-select2="searchSelect" ng-model="searchbar.terms" ng-change="doSearch(searchbar.terms)">
+                    </div>        
+                </div>
             </div>
+            
             <!-- <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p> -->
         </div>
     </div>

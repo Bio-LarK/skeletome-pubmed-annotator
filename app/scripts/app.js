@@ -30,29 +30,49 @@ angular.module('skeletomePubmedAnnotatorApp', [
                 console.log('options', options);
 
                 // encodeURIComponent(options.term).replace(/%20/g, "+");
-                $http.get('http://118.138.241.167:8080/phenopub/autocomplete?start=' + encodeURIComponent(options.term).replace(/%20/g, '+')).success(function (data) {
+                $http.get('http://118.138.241.167:8080/phenopub/autocomplete?start=' + encodeURIComponent(options.term.trim()).replace(/%20/g, '+')).success(function (data) {
                     var meshes = _.map(data.MESH, function (mesh) {
                         mesh.type = 'mesh';
-                        mesh.text = mesh.label + ' (MeSH)';
+                        mesh.text = mesh.label; // + ' (MeSH)';
                         return mesh;
                     });
                     var hpos = _.map(data.HPO, function (hpo) {
                         hpo.type = 'hpo';
-                        hpo.text = hpo.label + ' (HPO)';
+                        hpo.text = hpo.label; // + ' (HPO)';
                         return hpo;
                     });
                     var pubmeds = _.map(data.PUBMED, function (pubmed) {
                         pubmed.type = 'pubmed';
-                        pubmed.text = pubmed.label + ' (Publication)';
+                        pubmed.text = pubmed.label; // + ' (Publication)';
                         return pubmed;
                     });
 
-                    var results = meshes.concat(hpos).concat(pubmeds);
+
+                    var results = [];
+
+                    if (hpos.length) {
+                        results.push({
+                            text: 'HPO',
+                            children: hpos
+                        });
+                    }
+                    if (meshes.length) {
+                        results.push({
+                            text: 'MeSH',
+                            children: meshes
+                        });
+                    }
+                    if (pubmeds.length) {
+                        results.push({
+                            text: 'Publications',
+                            children: pubmeds
+                        });
+                    }
+
+                    // var results = meshes.concat(hpos).concat(pubmeds);
                     // console.log('meshes', results);
                     options.callback({
-                        results: _.sortBy(results, function (result) {
-                            return result.text.length;
-                        })
+                        results: results
                     });
                 });
             }
