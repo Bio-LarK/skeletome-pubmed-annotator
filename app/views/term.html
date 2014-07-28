@@ -18,10 +18,9 @@
         /*font-weight: 200;*/
     }
     </style>
-    <div ng-hide="term" style="text-align: center; font-size: 30px;">
-            <i class="fa fa-spin fa-circle-o-notch"></i>
-        </div>
-    <div class="row" ng-show="term">
+
+
+    <div class="row">
         <div class="col-sm-12">
 
             <div class="media">
@@ -30,9 +29,9 @@
                 </a>
                 <div class="media-body">
                     <div class="col-sm-8">
-                        <h2>{{ term.label }}
+                        <h2>{{ $stateParams.termName }}
                             <small ng-show="term.ic" class="term-ic">IC {{ term.ic | number:3 }}</small>
-                            <a ng-show="$stateParams.termType === 'mesh'" ng-href="http://pubmed-browser.human-phenotype-ontology.org:8080/phenopub/mesh/download?id={{ $stateParams.termId }}" download class="btn btn-default">Download</a>
+                            <a ng-show="term && $stateParams.termType === 'mesh'" ng-href="http://pubmed-browser.human-phenotype-ontology.org:8080/phenopub/mesh/download?id={{ $stateParams.termId }}" download class="btn btn-default">Download</a>
                         </h2>
                         <div ng-switch="$stateParams.termType">
                             <p class="text-muted" ng-switch-when="hpo">
@@ -42,7 +41,6 @@
                                 MeSH Term
                             </p>
                         </div>
-
 
                         <div ng-repeat="pubmed in term.pubs | limitTo:limit" class="result">
                             <div class="media">
@@ -66,16 +64,23 @@
                             </div>
 
                         </div>
-                        
+
                         <button class="btn btn-default form-control" ng-click="loadMore()" ng-show="limit < term.pubs.length" style="margin-top: 20px;">
                             Load More
                         </button>
 
                     </div>
                     <div class="col-sm-4" style="margin-top: 20px;">
-                        <div style="margin-bottom: 40px; border-top: 1px solid #eee; padding-top: 30px;" ng-show="$stateParams.termType === 'mesh'">
-                            <h3 style="margin-bottom: 15px; color:#6E6E6E">HPO</h3>
-                            <div class="result-hpo" ng-repeat="hpo in term.hpo | orderBy:'-ic'">
+                        <div ng-show="$stateParams.termType === 'mesh' && term">
+
+                            <div class="input-group termsearch" style="margin-bottom: 15px;">
+                                <input type="text" class="form-control" placeholder="HPO" ng-model="hpoSearch">
+                                <span class="input-group-addon"><i class="fa fa-search"></i>
+                                </span>
+                            </div>
+
+                            <!-- <h3 style="margin-bottom: 15px; color:#6E6E6E">HPO</h3> -->
+                            <div class="result-hpo" ng-repeat="hpo in term.hpo | orderBy:'-ic' | filter:hpoSearch">
                                 <a ui-sref="term({termId:hpo.id, termType:'hpo', termName:hpo.label})">
                                     {{ hpo.label }}
                                 </a>
@@ -94,9 +99,13 @@
                         </div>
 
                         <!-- <div class="col-sm-6"> -->
-                        <div ng-show="$stateParams.termType === 'hpo'">
-                            <h3 style="margin-bottom: 15px; color:#6E6E6E">MeSH</h3>
-                            <div class="result-hpo" ng-repeat="mesh in term.mesh" style="margin-bottom:10px">
+                        <div ng-show="$stateParams.termType === 'hpo' && term">
+                            <div class="input-group termsearch" style="margin-bottom: 15px;">
+                                <input type="text" class="form-control" placeholder="MeSH" ng-model="meshSearch">
+                                <span class="input-group-addon"><i class="fa fa-search"></i>
+                                </span>
+                            </div>
+                            <div class="result-hpo" ng-repeat="mesh in term.mesh | filter:meshSearch" style="margin-bottom:10px">
                                 <a ui-sref="term({termId:mesh.id, termType:'mesh', termName:mesh.label})">
                     {{ mesh.label}}
                 </a>
@@ -104,6 +113,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div ng-hide="term" style="text-align: center; font-size: 30px;">
+                <i class="fa fa-spin fa-circle-o-notch"></i>
             </div>
         </div>
     </div>

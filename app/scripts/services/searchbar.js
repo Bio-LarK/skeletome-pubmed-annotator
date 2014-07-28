@@ -28,7 +28,7 @@ angular.module('skeletomePubmedAnnotatorApp')
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             console.log('SUCCESS!', toState);
 
-            var timeout = 2000;
+            var timeout = 20000;
             if (fromState.name) {
                 timeout = 100;
             }

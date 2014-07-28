@@ -72,7 +72,7 @@ body {
 }
 .footer {
 	margin-top: 50px;
-	background-color: #efefef;
+	/*background-color: #efefef;*/
 	height: 60px;
 	width: 100%;
 }
@@ -83,8 +83,6 @@ body {
   -o-animation: spin 0.5s infinite linear;
   animation: spin 0.5s infinite linear;
 }
-
-
 
 
 html, body {
@@ -239,7 +237,56 @@ p {
         padding-left: 5px;
         color: #bbb;
     }
-    
 
+
+
+
+.termsearch {
+    margin-bottom: 5px;
+    position: relative;
+    left: -10px;
+    border-bottom: 1px solid #ddd;
+}
+.termsearch input {
+    border: 1px solid white;
+    box-shadow: none;
+    transition: none;
+    /*text-align: right;*/
+    /*font-weight: bold;*/
+}
+.termsearch .input-group-addon {
+    background-color: white;
+    border: 1px solid white;
+    color: #B9B9B9;
+}
+.termsearch:hover input {
+    /*border: 1px solid #ddd;*/
+    /*border-right: none;*/
+}
+.termsearch:hover .input-group-addon {
+    /*border: 1px solid #ddd;*/
+}
+.termsearch input:focus {
+    box-shadow: none;
+    border: none;
+    /*border: 1px solid #ddd;*/
+    /*border-right: none;*/
+    /*font-weight: normal;*/
+}
+.termsearch input:focus + .input-group-addon {
+    /*border: 1px solid #ddd;*/
+}
+.termsearch input::-webkit-input-placeholder {
+   color: #333;  
+}
+.termsearch input:-moz-placeholder { /* Firefox 18- */
+   color: #333;
+}
+.termsearch input::-moz-placeholder {  /* Firefox 19+ */
+   color: #333;
+}
+.termsearch input:-ms-input-placeholder {  
+   color: #333;  
+}
 
 

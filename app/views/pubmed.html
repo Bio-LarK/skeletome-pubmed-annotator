@@ -62,8 +62,12 @@
             <!-- <div class="row">
                 <div class="col-sm-6"> -->
             <div style="margin-bottom: 40px;">
-                <h3 style="margin-bottom: 15px; color:#6E6E6E">HPO</h3>
-                <div class="result-hpo" ng-repeat="hpo in pubmed.hpo | orderBy:'-ic'">
+                <div class="input-group termsearch" style="margin-bottom: 15px;">
+                                <input type="text" class="form-control" placeholder="HPO" ng-model="hpoSearch">
+                                <span class="input-group-addon"><i class="fa fa-search"></i>
+                                </span>
+                            </div>
+                <div class="result-hpo" ng-repeat="hpo in pubmed.hpo | orderBy:'-ic' | filter:hpoSearch">
                     <a ui-sref="term({termId:hpo.id, termType:'hpo', termName:hpo.label})">
                         {{ hpo.label }} <span class="term-ic">- IC {{ hpo.ic | number:3 }}</span>
                     </a>
@@ -81,9 +85,13 @@
             </div>
 
             <!-- <div class="col-sm-6"> -->
-            <div style="border-top: 1px solid #eee; padding-top: 30px;">
-                <h3 style="margin-bottom: 15px; color:#6E6E6E">MeSH</h3>
-                <div class="result-hpo" ng-repeat="mesh in pubmed.mesh | orderBy:'-ic'" style="margin-bottom:10px">
+            <div style="padding-top: 30px;">
+                <div class="input-group termsearch" style="margin-bottom: 15px;">
+                                <input type="text" class="form-control" placeholder="MeSH" ng-model="meshSearch">
+                                <span class="input-group-addon"><i class="fa fa-search"></i>
+                                </span>
+                            </div>
+                <div class="result-hpo" ng-repeat="mesh in pubmed.mesh | orderBy:'-ic' | filter:meshSearch" style="margin-bottom:10px">
                     <a ui-sref="term({termId: mesh.id, termType:'mesh', termName: mesh.label})">
                     {{ mesh.label}}
                 </a>

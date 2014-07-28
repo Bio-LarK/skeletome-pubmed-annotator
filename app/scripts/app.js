@@ -53,19 +53,25 @@ angular.module('skeletomePubmedAnnotatorApp', [
                     if (hpos.length) {
                         results.push({
                             text: 'HPO',
-                            children: hpos
+                            children: _.sortBy(hpos, function (hpo) {
+                                return hpo.label.length;
+                            })
                         });
                     }
                     if (meshes.length) {
                         results.push({
                             text: 'MeSH',
-                            children: meshes
+                            children: _.sortBy(meshes, function (mesh) {
+                                return mesh.label.length;
+                            })
                         });
                     }
                     if (pubmeds.length) {
                         results.push({
                             text: 'Publications',
-                            children: pubmeds
+                            children: _.sortBy(pubmeds, function (pubmed) {
+                                return pubmed.label.length;
+                            })
                         });
                     }
 
