@@ -30,11 +30,21 @@
     padding: 10px 15px;
     border-radius: 3px;
 }
-footer {
-
-}
+footer {}
 </style>
 <div style="border-top: 5px solid #f1c40f">
+
+    <div class="container">
+        <div class="row">
+            <div class="">
+                <p style="text-align: right; margin-top: 20px;">
+                    <a ui-sref="about">About</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
     <div class="jumbotron animated bounceInDown">
         <div class="container">
             <div style="width: 50px; height: 50px; background-color: #f1c40f; margin: 0 auto; border-radius: 100px;">
@@ -52,20 +62,19 @@ footer {
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
                     <div id="front-search" ui-select2="searchSelect" ng-model="searchbar.terms" ng-change="doSearch(searchbar.terms)">
-                    </div>        
+                    </div>
                 </div>
             </div>
 
             <div style="margin-top:25px; color: #bbb;">
                 Powered by <a href="http://human-phenotype-ontology.org/">The Human Phenotype Ontology</a> and <a href="http://www.bio-lark.org/">Bio-LarK</a>
             </div>
-            <div style="text-align: center; margin-top: 35px;">
-                <!-- <img src="images/monarch-initiative-logo.png" alt="" style="width: 50px;"> -->
-                <img src="images/monarch-initiative-logo.png" alt="" style="width: 50px;"> Monarch Initiative
-                <!-- <img src="images/monarch-initiative-logo.png" alt="" style="width: 50px;"> -->
-            </div>
+            <!-- <div style="text-align: center; margin-top: 35px;">
+    <img src="images/monarch-initiative-logo.png" alt="" style="width: 50px;">Monarch Initiative
+</div>
+ -->
 
-            
+
             <!-- <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p> -->
         </div>
     </div>
