@@ -29,7 +29,7 @@
                 </a>
                 <div class="media-body">
                     <div class="col-sm-8">
-                        <h2>{{ $stateParams.termName }}
+                        <h2>{{ term.label || 'Loading...' }}
                             <small ng-show="term.ic" class="term-ic">IC {{ term.ic | number:3 }}</small>
                             <a ng-show="term && $stateParams.termType === 'mesh'" ng-href="http://pubmed-browser.human-phenotype-ontology.org:8080/phenopub/mesh/download?id={{ $stateParams.termId }}" download class="btn btn-default">Download</a>
                         </h2>

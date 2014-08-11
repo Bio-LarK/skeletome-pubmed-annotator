@@ -12,7 +12,7 @@ angular.module('skeletomePubmedAnnotatorApp', [
     'ui.router', 'restangular', 'ui.select2', 'angular-loading-bar',
     'truncate'
 ])
-    .run(function($rootScope, $state, $stateParams, searchbar, $timeout, $http) { // instance-injector
+    .run(function ($rootScope, $state, $stateParams, searchbar, $timeout, $http) { // instance-injector
         // This is an example of a run block.
         // You can have as many of these as you want.
         // You can only inject instances (not Providers)
@@ -26,22 +26,21 @@ angular.module('skeletomePubmedAnnotatorApp', [
             width: 'resolve',
             multiple: true,
             minimumInputLength: 2,
-            query: function(options) {
-                console.log('options', options);
+            query: function (options) {
 
                 // encodeURIComponent(options.term).replace(/%20/g, "+");
-                $http.get('http://118.138.241.167:8080/phenopub/autocomplete?start=' + encodeURIComponent(options.term.trim()).replace(/%20/g, '+')).success(function(data) {
-                    var meshes = _.map(data.MESH, function(mesh) {
+                $http.get('http://118.138.241.167:8080/phenopub/autocomplete?start=' + encodeURIComponent(options.term.trim()).replace(/%20/g, '+')).success(function (data) {
+                    var meshes = _.map(data.MESH, function (mesh) {
                         mesh.type = 'mesh';
                         mesh.text = mesh.label; // + ' (MeSH)';
                         return mesh;
                     });
-                    var hpos = _.map(data.HPO, function(hpo) {
+                    var hpos = _.map(data.HPO, function (hpo) {
                         hpo.type = 'hpo';
                         hpo.text = hpo.label; // + ' (HPO)';
                         return hpo;
                     });
-                    var pubmeds = _.map(data.PUBMED, function(pubmed) {
+                    var pubmeds = _.map(data.PUBMED, function (pubmed) {
                         pubmed.type = 'pubmed';
                         pubmed.text = pubmed.label; // + ' (Publication)';
                         return pubmed;
@@ -53,7 +52,7 @@ angular.module('skeletomePubmedAnnotatorApp', [
                     if (hpos.length) {
                         results.push({
                             text: 'HPO',
-                            children: _.sortBy(hpos, function(hpo) {
+                            children: _.sortBy(hpos, function (hpo) {
                                 return hpo.label.length;
                             })
                         });
@@ -61,7 +60,7 @@ angular.module('skeletomePubmedAnnotatorApp', [
                     if (meshes.length) {
                         results.push({
                             text: 'MeSH',
-                            children: _.sortBy(meshes, function(mesh) {
+                            children: _.sortBy(meshes, function (mesh) {
                                 return mesh.label.length;
                             })
                         });
@@ -69,7 +68,7 @@ angular.module('skeletomePubmedAnnotatorApp', [
                     if (pubmeds.length) {
                         results.push({
                             text: 'Publications',
-                            children: _.sortBy(pubmeds, function(pubmed) {
+                            children: _.sortBy(pubmeds, function (pubmed) {
                                 return pubmed.label.length;
                             })
                         });
@@ -89,7 +88,7 @@ angular.module('skeletomePubmedAnnotatorApp', [
         $rootScope.searchbar = searchbar;
 
     })
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider) {
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise('/');
         //
@@ -110,9 +109,18 @@ angular.module('skeletomePubmedAnnotatorApp', [
                 templateUrl: 'views/results.html'
             })
             .state('term', {
-                url: '/term/:termId/:termType/:termName',
+                url: '/:termType/:termId',
+                resolve: {
+                    termTypeCheck: ['$stateParams', '$q',
+                        function ($stateParams, $q) {
+                            if ($stateParams.termType !== 'mesh' && $stateParams.termType !== 'hpo' && $stateParams.termType !== 'doid') {
+                                return $q.reject('Not a valid term type - ' + $stateParams.termType);
+                            }
+                        }
+                    ]
+                },
                 controller: 'TermCtrl',
-                templateUrl: 'views/term.html'
+                templateUrl: 'views/term.html',
             })
             .state('pubmed', {
                 url: '/pubmed/:pubmedId',

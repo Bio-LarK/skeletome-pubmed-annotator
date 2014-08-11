@@ -15,7 +15,10 @@ angular.module('skeletomePubmedAnnotatorApp')
             'Karma'
         ];
 
+        ////////////
+
         var termPromise;
+
 
         if ($stateParams.termType === 'hpo') {
             // /hpo?id=<<HPO ID>>
