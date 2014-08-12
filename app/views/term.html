@@ -72,11 +72,14 @@
                     </div>
                     <div class="col-sm-4" style="margin-top: 20px;">
                         <div style="margin-bottom: 21px;" ng-show="term.doid">
-                            <h5>DOID</h5>
-                            <span ng-repeat="(key, doid) in term.doid" style="color: #888; text-transform: uppercase; font-size: 12px;">
-                                <a ng-href="{{ doid.url }}" target="_blank">{{ doid.id }}</a>
-                                (<a ng-href="{{ doid.vis_id }}" target="_blank">Visualisation</a>)
-                            </span>
+                            <h5>Disease Ontology</h5>
+                            <div ng-repeat="(key, doid) in term.doid" style="color: #888; text-transform: uppercase; font-size: 12px;">
+                                DOID: <a ng-href="{{ doid.url }}" target="_blank">{{ doid.id }}</a>
+                                <span ng-show="doid.vis_id">
+                                    - 
+                                    <a ng-href="{{ doid.vis_id }}" target="_blank">View Disease Network</a>
+                                </span>
+                            </div>
                         </div>
                                
                             

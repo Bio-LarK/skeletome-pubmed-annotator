@@ -1,0 +1,49 @@
+<div class="container">
+    <style>
+    h2 {
+        font-weight: 200;
+        line-height: 1.5;
+        margin-top: 0;
+    }
+    .fa-stethoscope {
+        font-size: 30px;
+        color: #E8C14F;
+        position: relative;
+        top: 10px;
+        margin-right: 5px;
+    }
+    h3 {
+        margin-top: 0;
+        font-size: 16px;
+        /*font-weight: 200;*/
+    }
+    </style>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <!-- <i class="fa fa-stethoscope"></i> -->
+                </a>
+                <div class="media-body">
+                    <div class="col-sm-8">
+                        <h2>Disease Ontology <span style="text-transform: uppercase;">{{ $stateParams.doid }}</span>
+                        </h2>
+                        <p class="text-muted">Please select a MeSH Term</p>
+                        <ul class="list-group">
+                        	<li ng-repeat="mesh in meshes" class="list-group-item">
+                        		<a href ui-sref="term({termType: 'mesh', termId: mesh.id })">
+                        			{{ mesh.id }} - {{ mesh.label }}
+                        		</a>
+                        	</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 20px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

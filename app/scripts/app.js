@@ -88,11 +88,11 @@ angular.module('skeletomePubmedAnnotatorApp', [
         $rootScope.searchbar = searchbar;
 
     })
-    .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+    .config(function ($stateProvider, $urlRouterProvider) {
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise('/');
 
-        // $locationProvider.html5Mode(true);
+        // $locationProvider.html5Mode(true).hashPrefix('!');
         //
         // Now set up the states
         $stateProvider
@@ -110,12 +110,42 @@ angular.module('skeletomePubmedAnnotatorApp', [
                 controller: 'ResultsCtrl',
                 templateUrl: 'views/results.html'
             })
+            .state('do', {
+                url: '/do/:doid',
+                resolve: {
+                    meshes: ['$stateParams', '$http', '$state', '$q',
+                        function ($stateParams, $http, $state, $q) {
+                            var doid = $stateParams.doid.replace('doid:', '');
+                            return $http.get('http://118.138.241.167:8080/phenopub/do?meshid=' + doid).then(function (response) {
+
+                                var doids = _.values(response.data);
+                                if (doids.length === 1) {
+                                    $state.go('term', {
+                                        termType: 'mesh',
+                                        termId: doids[0].id
+                                    });
+                                } else if (doids.length > 1) {
+                                    return doids;
+                                } else {
+                                    $q.reject();
+                                }
+                            });
+                        }
+                    ]
+                },
+                controller: ['$scope', 'meshes',
+                    function ($scope, meshes) {
+                        $scope.meshes = meshes;
+                    }
+                ],
+                templateUrl: 'views/do.html',
+            })
             .state('term', {
                 url: '/:termType/:termId',
                 resolve: {
                     termTypeCheck: ['$stateParams', '$q',
                         function ($stateParams, $q) {
-                            if ($stateParams.termType !== 'mesh' && $stateParams.termType !== 'hpo' && $stateParams.termType !== 'doid') {
+                            if ($stateParams.termType !== 'mesh' && $stateParams.termType !== 'hpo' && $stateParams.termType !== 'do') {
                                 return $q.reject('Not a valid term type - ' + $stateParams.termType);
                             }
                         }
