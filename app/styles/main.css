@@ -70,12 +70,6 @@ a {
 body {
 	padding-bottom: 60px;
 }
-.footer {
-	margin-top: 50px;
-	/*background-color: #efefef;*/
-	height: 60px;
-	width: 100%;
-}
 
 .fa-spin {
   -webkit-animation: spin 0.5s infinite linear;
@@ -289,4 +283,70 @@ p {
    color: #333;  
 }
 
+
+
+
+/***
+Footer
+*/
+.wrapper {
+  background-color: white;
+  padding-bottom: 50px;
+}
+
+.footer {
+    text-align: center;
+}
+.footer:hover a {
+    color: #428bca;
+}
+.footer-poweredby {
+    font-weight: normal;
+    margin-bottom: 30px;
+    color: rgba(0,0,0,0.54);
+}
+.footer-poweredby a {
+    /*color: #D4C795;*/
+}
+
+.footer.footer-standard {
+    border-top: 1px solid #eee;
+    padding: 20px 0;
+}
+.footer.footer-search {
+  margin-top: 20px;
+  padding: 20px 0;
+}
+
+.logo-list {
+  list-style: none;
+}
+.logo-list-item {
+  display: inline-block;
+  margin-right: 40px;
+}
+.logo-list-item-charite img {
+  max-width: 100px;
+}
+.logo-list-item-disease-ontology img {
+  max-width: 100px;
+}
+.logo-list-item-orphanet img {
+  max-width: 100px;
+}
+.logo-list-item-uq img {
+  max-height: 80px; max-width: 100px;
+}
+.logo-list-item-garvan img {
+  max-height: 110px; max-width: 110px;
+}
+.logo-list-item-usyd img {
+  max-height: 100px; max-width: 130px;
+}
+.logo-list-item-monarch img {
+  max-width: 130px;
+}
+.logo-list-item-irdirc img {
+  max-width: 120px;
+}
 

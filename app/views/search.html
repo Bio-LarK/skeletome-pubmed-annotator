@@ -66,9 +66,12 @@ footer {}
                 </div>
             </div>
 
-            <div style="margin-top:25px; color: #bbb;">
-                Powered by <a href="http://human-phenotype-ontology.org/">The Human Phenotype Ontology</a> and <a href="http://www.bio-lark.org/">Bio-LarK</a>
+
+            <div class="footer footer-search" ng-if="$state.current.name == 'search'">
+                <div class="container" ng-include="'views/logos.html'">
+                </div>
             </div>
+
             <!-- <div style="text-align: center; margin-top: 35px;">
     <img src="images/monarch-initiative-logo.png" alt="" style="width: 50px;">Monarch Initiative
 </div>

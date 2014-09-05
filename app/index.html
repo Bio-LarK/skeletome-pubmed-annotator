@@ -100,12 +100,15 @@
     </nav>
 
 
-    <ui-view></ui-view>
+    <div class="wrapper">
+        <ui-view></ui-view>
+    </div>
 
-    <div class="footer" ng-hide="!$state.current.name  || $state.includes('search')" ng-cloak>
-        <div class="container">
 
-        </div>
+    <!-- Footer for all pages besides the search page -->
+    <div class="footer footer-standard" ng-if="$state.current.name != 'search'">
+        <div class="container" ng-include="'views/logos.html'">
+                </div>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
