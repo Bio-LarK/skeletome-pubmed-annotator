@@ -85,7 +85,7 @@ module.exports = function (grunt) {
             phenotype: {
                 options: {
                     src: '<%= yeoman.dist %>/',
-                    dest: 'craig@phenotype:/var/www/browser',
+                    dest: 'craig@pubmedbrowser:/var/www/browser',
                     ssh: true,
                     rescursive: true,
                     // syncDestIgnoreExcl: true,

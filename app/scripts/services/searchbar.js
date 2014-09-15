@@ -25,7 +25,7 @@ angular.module('skeletomePubmedAnnotatorApp')
                 searchbar.terms.length = 0;
             }
         });
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
             console.log('SUCCESS!', toState);
 
             var timeout = 20000;

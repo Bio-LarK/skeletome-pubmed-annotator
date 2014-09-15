@@ -11,7 +11,7 @@
  * Controller of the skeletomePubmedAnnotatorApp
  */
 angular.module('skeletomePubmedAnnotatorApp')
-    .controller('ResultsCtrl', function ($scope, $stateParams, $http, searchbar) {
+    .controller('ResultsCtrl', function($scope, $stateParams, $http, searchbar) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -19,18 +19,19 @@ angular.module('skeletomePubmedAnnotatorApp')
         ];
 
         $scope.allPubmeds = null;
+        $scope.meshes = null;
+        $scope.hpos = null;
         $scope.filterByTerms = [];
+        $scope.loadMore = function() {
+            $scope.pubmedDisplayLimit = Math.min($scope.pubmedDisplayLimit + 10, $scope.pubmeds.length);
+            loadFullPubmeds($scope.pubmeds, $scope.pubmedDisplayLimit);
+        };
 
         var PUBMED_DISPLAY_LIMIT_DEFAULT = 10;
         $scope.pubmedDisplayLimit = PUBMED_DISPLAY_LIMIT_DEFAULT;
 
 
-        $scope.loadMore = function () {
-            $scope.pubmedDisplayLimit = Math.min($scope.pubmedDisplayLimit + 10, $scope.pubmeds.length);
-            loadFullPubmeds($scope.pubmeds, $scope.pubmedDisplayLimit);
-        };
-
-        $scope.toggleFilter = function (term) {
+        $scope.toggleFilter = function(term) {
             // console.log('term', term);
             $scope.hpoSearch = '';
             term.isFiltering = !term.isFiltering;
@@ -46,19 +47,19 @@ angular.module('skeletomePubmedAnnotatorApp')
 
         function filterPubmedsByTerms(terms) {
             $scope.pubmedDisplayLimit = PUBMED_DISPLAY_LIMIT_DEFAULT;
-            $scope.pubmeds = _.filter($scope.allPubmeds, function (pubmed) {
+            $scope.pubmeds = _.filter($scope.allPubmeds, function(pubmed) {
                 //for each tern, there exists a property that matches
                 var doesMatch = true;
 
-                _.each(terms, function (term) {
+                _.each(terms, function(term) {
 
                     if (term.type === 'hpo') {
-                        doesMatch = doesMatch && !! _.findWhere(pubmed.hpo, {
+                        doesMatch = doesMatch && !!_.findWhere(pubmed.hpo, {
                             id: term.id
                         });
                     }
                     if (term.type === 'mesh') {
-                        doesMatch = doesMatch && !! _.findWhere(pubmed.mesh, {
+                        doesMatch = doesMatch && !!_.findWhere(pubmed.mesh, {
                             id: term.id
                         });
                     }
@@ -67,21 +68,21 @@ angular.module('skeletomePubmedAnnotatorApp')
             });
         }
 
-        $scope.$watchCollection('searchbar.terms', function () {
+        $scope.$watchCollection('searchbar.terms', function() {
             $scope.allPubmeds = null;
             $scope.pubmeds = null;
         });
 
         function search(terms) {
             console.log('searching with terms', terms);
-            var hpoIds = _.reduce(terms, function (hpoIds, term) {
+            var hpoIds = _.reduce(terms, function(hpoIds, term) {
                 if (term.type === 'hpo') {
                     hpoIds.push(term.id);
                 }
                 return hpoIds;
             }, []);
 
-            var meshIds = _.reduce(terms, function (meshIds, term) {
+            var meshIds = _.reduce(terms, function(meshIds, term) {
                 if (term.type === 'mesh') {
                     meshIds.push(term.id);
                 }
@@ -89,20 +90,20 @@ angular.module('skeletomePubmedAnnotatorApp')
             }, []);
 
             angular.copy(terms, searchbar.terms);
-            $http.get('http://118.138.241.167:8080/phenopub/search?hpo=' + hpoIds.join(',') + '&mesh=' + meshIds.join(',')).success(function (data) {
+            $http.get('http://118.138.241.167:8080/phenopub/search?hpo=' + hpoIds.join(',') + '&mesh=' + meshIds.join(',')).success(function(data) {
                 $scope.allPubmeds = _.values(data);
 
                 $scope.pubmedDisplayLimit = Math.min(PUBMED_DISPLAY_LIMIT_DEFAULT, $scope.allPubmeds.length);
 
-                _.each(data, function (pubmed) {
+                _.each(data, function(pubmed) {
                     pubmed.id = pubmed.pmid;
-                    _.each(pubmed.hpo, function (hpo, key) {
+                    _.each(pubmed.hpo, function(hpo, key) {
                         hpo.id = key;
                         hpo.type = 'hpo';
                         hpo.text = hpo.label + ' (HPO)';
                     });
-                    _.each(pubmed.mesh, function (mesh, key) {
-                        mesh.id = key;
+                    _.each(pubmed.mesh, function(mesh) {
+                        // mesh.id = m;
                         mesh.type = 'mesh';
                         mesh.text = mesh.label + ' (MeSH)';
                     });
@@ -121,7 +122,7 @@ angular.module('skeletomePubmedAnnotatorApp')
             // Now load in all the pubmed info
             // Get all the pmids for the first few
             var firstPubmeds = pubmeds.slice(0, limit);
-            var pmids = _.reduce(firstPubmeds, function (pmids, pubmed) {
+            var pmids = _.reduce(firstPubmeds, function(pmids, pubmed) {
                 if (!pubmed.abstract) {
                     pmids.push(pubmed.pmid);
                 }
@@ -130,8 +131,8 @@ angular.module('skeletomePubmedAnnotatorApp')
 
             // console.log('all pubmeds', $scope.allPubmeds);
             if (pmids.length) {
-                $http.get('http://118.138.241.167:8080/phenopub/search?pmid=' + pmids.join(',')).success(function (fullPubmeds) {
-                    _.each(fullPubmeds, function (fullPubmed, key) {
+                $http.get('http://118.138.241.167:8080/phenopub/search?pmid=' + pmids.join(',')).success(function(fullPubmeds) {
+                    _.each(fullPubmeds, function(fullPubmed, key) {
                         var pubmed = _.findWhere($scope.allPubmeds, {
                             id: key
                         });
@@ -142,7 +143,7 @@ angular.module('skeletomePubmedAnnotatorApp')
         }
 
         // Analyse pubmed results loop
-        $scope.$watchCollection('pubmeds', function (pubmeds) {
+        $scope.$watchCollection('pubmeds', function(pubmeds) {
             if (!pubmeds) {
                 return;
             }
@@ -150,8 +151,8 @@ angular.module('skeletomePubmedAnnotatorApp')
             loadFullPubmeds(pubmeds, $scope.pubmedDisplayLimit);
 
             // Get all the hpos
-            $scope.hpos = _.reduce($scope.pubmeds, function (allHpos, pubmed) {
-                _.each(pubmed.hpo, function (hpo) {
+            $scope.hpos = _.reduce($scope.pubmeds, function(allHpos, pubmed) {
+                _.each(pubmed.hpo, function(hpo) {
 
                     var existingHpo = _.findWhere(allHpos, {
                         id: hpo.id
@@ -164,7 +165,7 @@ angular.module('skeletomePubmedAnnotatorApp')
                     }
 
                     // filtering?
-                    hpo.isFiltering = !! _.findWhere($scope.filterByTerms, {
+                    hpo.isFiltering = !!_.findWhere($scope.filterByTerms, {
                         id: hpo.id,
                         type: 'hpo'
                     });
@@ -173,23 +174,27 @@ angular.module('skeletomePubmedAnnotatorApp')
                 return allHpos;
             }, []);
 
-            $scope.meshes = _.reduce($scope.pubmeds, function (allMeshes, pubmed) {
-                _.each(pubmed.mesh, function (mesh) {
+            $scope.meshes = _.reduce($scope.pubmeds, function(allMeshes, pubmed) {
+                // $log.debug('Generating meshes');
+                _.each(pubmed.mesh, function(mesh) {
                     // mesh.type = 'mesh';
                     // mesh.text = mesh.label + ' (MeSH)';
-
                     var existingMesh = _.findWhere(allMeshes, {
                         id: mesh.id
                     });
                     if (existingMesh) {
                         existingMesh.count++;
                     } else {
+                        if (mesh.label === 'Hypertension') {
+                            // $log.debug('MeSH is hypertension', mesh);
+                        }
+
                         mesh.count = 1;
                         allMeshes.push(mesh);
                     }
 
                     // filtering?
-                    mesh.isFiltering = !! _.findWhere($scope.filterByTerms, {
+                    mesh.isFiltering = !!_.findWhere($scope.filterByTerms, {
                         id: mesh.id,
                         type: 'mesh'
                     });

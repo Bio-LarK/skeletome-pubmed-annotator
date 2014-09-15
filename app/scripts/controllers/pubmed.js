@@ -9,11 +9,8 @@
  */
 angular.module('skeletomePubmedAnnotatorApp')
     .controller('PubmedCtrl', function ($scope, $http, $stateParams) {
-        $scope.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
+
+        console.log('HERE!');
 
         $http.get('http://118.138.241.167:8080/phenopub/pmid?id=' + $stateParams.pubmedId).then(function (response) {
             // Transform the data into standard format

@@ -10,7 +10,7 @@
  */
 angular.module('skeletomePubmedAnnotatorApp', [
     'ui.router', 'restangular', 'ui.select2', 'angular-loading-bar',
-    'truncate'
+    'truncate', 'ui.utils', 'duScroll'
 ])
     .run(function ($rootScope, $state, $stateParams, searchbar, $timeout, $http) { // instance-injector
         // This is an example of a run block.
@@ -96,10 +96,20 @@ angular.module('skeletomePubmedAnnotatorApp', [
         //
         // Now set up the states
         $stateProvider
+            .state('pubmed', {
+                url: '/pubmed/:pubmedId',
+                controller: 'PubmedCtrl',
+                templateUrl: 'views/pubmed.html'
+            })
             .state('search', {
                 url: '/',
                 controller: 'SearchCtrl',
                 templateUrl: 'views/search.html'
+            })
+            .state('tour', {
+                url: '/tour',
+                controller: 'TourCtrl',
+                templateUrl: 'views/tour.html'
             })
             .state('about', {
                 url: '/about',
@@ -153,10 +163,6 @@ angular.module('skeletomePubmedAnnotatorApp', [
                 },
                 controller: 'TermCtrl',
                 templateUrl: 'views/term.html',
-            })
-            .state('pubmed', {
-                url: '/pubmed/:pubmedId',
-                controller: 'PubmedCtrl',
-                templateUrl: 'views/pubmed.html'
             });
+            
     });

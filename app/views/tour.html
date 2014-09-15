@@ -1,0 +1,264 @@
+<div>
+    <style>
+    .jumbotron-feature {
+        margin: 0;
+        text-align: center;
+    }
+    .jumbotron-feature .jumbotron-heading {
+        font-weight: 400;
+        margin: 25px auto 10px;
+        font-size: 42px;
+    }
+    .jumbotron-feature .hero-icon {
+        border-color: white;
+    }
+    .jumbotron-feature .leading {
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    .feature-section {
+        padding: 65px 0;
+        border-bottom: 1px solid #ddd;
+    }
+    .page-nav {
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+        color: rgba(0,0,0,0.5);
+    }
+    .page-nav .nav-pills {
+        display: inline-block;
+    }
+    .page-nav {
+        height: 60px;
+        background-color: white;
+        z-index: 99;
+    }
+    .sticky.ui-scrollfix .page-nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+    .feature-heading {
+        font-weight: 300;
+        font-size: 36px;
+        text-align: center;
+        line-height: 1.5;
+        margin: 30px 0 20px;
+    }
+    .feature-image {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+    }
+    .hero-icon {
+        width: 75px;
+        height: 75px;
+        border-radius: 75px;
+        text-align: center;
+        border: 1px solid #ddd;
+        margin: 0 auto;
+    }
+    .hero-icon .mega-icon {
+        font-size: 34px;
+        text-shadow: none;
+        line-height: 73px;
+        position: relative;
+        left: 1px;
+    }
+    .start-searching {
+        padding: 25px 0;
+        background-color: #428bca;
+        text-align: center;
+        color: white;
+    }
+    .start-searching-heading {
+        font-weight: 300;
+        font-size: 28px;
+        text-align: center;
+        line-height: 1.5;
+        margin: 0 auto 20px;
+    }
+    .start-searching .btn {
+        background-color: white;
+        border-color: white;
+        color: #428bca;
+    }
+    </style>
+    <!--  <ul>
+        <li>semantic search using HPO phenotypes and disease knowledge</li>
+        <li>
+            analyse co-occuring phenotypes 
+        </li>
+        <li>
+            investigate disease phenotype associations
+        </li>
+        <li>exploring structured phenotypes in the context of disorders</li>
+        <li>exploring disorders in the context of structured phenotypes</li>
+        <li>explore structured phenotypes and diseases in publications</li>
+        <li>retrieve disease data for offline processing</li>
+        <li>retrieve structued phenotype and disease data for publications</li>
+
+        <li>
+            searching
+            <ul>
+                <li>search for disorders</li>
+                <li>search for hpo terms</li>
+                <li>combine search</li>
+            </ul>
+        </li>
+        <li>
+            Filtering
+            <ul>
+                <li>filter by co-occuring hpo terms</li>
+                <li>filter by co-occuring mesh terms</li>
+            </ul>
+        </li>
+        <li>
+            Exploring
+
+        </li>
+        <li>
+            Searching
+        </li>
+        <li>
+            Downloading the data
+        </li>
+    </ul> -->
+    <div class="jumbotron jumbotron-feature">
+        <div class="container">
+            <div class="hero-icon">
+                <span class="mega-icon fa fa-book"></span>
+            </div>
+
+            <h1 class="jumbotron-heading">A new way to browse Pubmed</h1>
+            <p class="leading">Nam vulputate molestie massa ut luctus. Suspendisse sollicitudin mollis sapien eget laoreet.</p>
+        </div>
+    </div>
+
+    <div class="sticky" ui-scrollfix="+60">
+        <div class="page-nav">
+            <div class="container">
+                <ul class="nav nav-pills">
+                    <li du-scrollspy="search" class="active">
+                        <a href="#search" du-smooth-scroll>
+                        <i class="fa fa-search"></i> Search</a>
+                    </li>
+                    <li du-scrollspy="analyse">
+                        <a href="#analyse" du-smooth-scroll>
+                        <i class="fa fa-filter"></i> Analyse</a>
+                    </li>
+                    <li du-scrollspy="explore">
+                        <a href="#explore" du-smooth-scroll>
+                        <i class="fa fa-binoculars"></i> Explore</a>
+                    </li>
+                    <li du-scrollspy="download">
+                        <a href="#download" du-smooth-scroll>
+                        <i class="fa fa-cloud-download"></i> Download</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="features">
+        <div class="feature-section" id="search">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="hero-icon">
+                            <span class="mega-icon fa fa-search"></span>
+                        </div>
+                        <h3 class="feature-heading">
+                            Intelligent Search
+                        </h3>
+                        <p>
+                            Etiam maximus facilisis enim ut fermentum. Vivamus commodo aliquet risus sit amet dignissim. Ut ornare justo ac urna volutpat feugiat. Praesent eu luctus metus, vitae sollicitudin magna. Aliquam sit amet nisl vel nisl pulvinar vulputate iaculis vitae tortor. In venenatis ante lacinia nibh aliquet lobortis. Vivamus cursus libero ac orci maximus, vitae lobortis mi luctus. Lorem ipsum dolor sit amet.
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="images/tour-feature-search.png" alt="" class="feature-image img-responsive">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-section" id="analyse">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img src="images/tour-feature-analysis.png" alt="" class="feature-image img-responsive">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="hero-icon">
+                            <span class="mega-icon fa fa-filter"></span>
+                        </div>
+
+                        <h3 class="feature-heading">
+                            Advanced Analysis
+                        </h3>
+                        <p>
+                            Etiam maximus facilisis enim ut fermentum. Vivamus commodo aliquet risus sit amet dignissim. Ut ornare justo ac urna volutpat feugiat. Praesent eu luctus metus, vitae sollicitudin magna. Aliquam sit amet nisl vel nisl pulvinar vulputate iaculis vitae tortor. In venenatis ante lacinia nibh aliquet lobortis. Vivamus cursus libero ac orci maximus, vitae lobortis mi luctus. Lorem ipsum dolor sit amet.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-section" id="explore">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="hero-icon">
+                            <span class="mega-icon fa fa-binoculars"></span>
+                        </div>
+
+                        <h3 class="feature-heading">
+                            Insightful Exploring
+                        </h3>
+                        <p>
+                            Etiam maximus facilisis enim ut fermentum. Vivamus commodo aliquet risus sit amet dignissim. Ut ornare justo ac urna volutpat feugiat. Praesent eu luctus metus, vitae sollicitudin magna. Aliquam sit amet nisl vel nisl pulvinar vulputate iaculis vitae tortor. In venenatis ante lacinia nibh aliquet lobortis. Vivamus cursus libero ac orci maximus, vitae lobortis mi luctus. Lorem ipsum dosearchsearchlor sit amet.
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="images/tour-feature-explore.png" alt="" class="feature-image img-responsive">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-section" id="download">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img src="images/tour-feature-download.png" alt="" class="feature-image img-responsive">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="hero-icon">
+                            <span class="mega-icon fa fa-cloud-download"></span>
+                        </div>
+                        <h3 class="feature-heading">
+                            Ready to Download
+                        </h3>
+                        <p>
+                            Etiam maximus facilisis enim ut fermentum. Vivamus commodo aliquet risus sit amet dignissim. Ut ornare justo ac urna volutpat feugiat. Praesent eu luctus metus, vitae sollicitudin magna. Aliquam sit amet nisl vel nisl pulvinar vulputate iaculis vitae tortor. In venenatis ante lacinia nibh aliquet lobortis. Vivamus cursus libero ac orci maximus, vitae lobortis mi luctus. Lorem ipsum dolor sit amet.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="start-searching">
+            <div class="container">
+                <h3 class="start-searching-heading">
+                    Ready to go?
+                </h3>
+                <button class="btn btn-primary btn-lg" ui-sref="search"><i class="fa fa-search"></i> Start Searching</button>
+            </div>
+        </div>
+
+    </div>
+</div>

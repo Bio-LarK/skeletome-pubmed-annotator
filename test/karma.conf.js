@@ -33,6 +33,7 @@ module.exports = function (config) {
             'bower_components/angular-loading-bar/src/loading-bar.js',
             'bower_components/angular-truncate/src/truncate.js',
             'bower_components/angular-promise-tracker/promise-tracker.js',
+            'bower_components/angular-scroll/angular-scroll.min.js',
             // endbower
             // 
             'bower_components/angular/angular.js',
