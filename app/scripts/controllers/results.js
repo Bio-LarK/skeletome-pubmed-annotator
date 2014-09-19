@@ -22,13 +22,16 @@ angular.module('skeletomePubmedAnnotatorApp')
         $scope.meshes = null;
         $scope.hpos = null;
         $scope.filterByTerms = [];
+        $scope.TERM_LIMIT = 10;
+        var PUBMED_DISPLAY_LIMIT_DEFAULT = 10;
+        $scope.pubmedDisplayLimit = PUBMED_DISPLAY_LIMIT_DEFAULT;
+
         $scope.loadMore = function() {
             $scope.pubmedDisplayLimit = Math.min($scope.pubmedDisplayLimit + 10, $scope.pubmeds.length);
             loadFullPubmeds($scope.pubmeds, $scope.pubmedDisplayLimit);
         };
 
-        var PUBMED_DISPLAY_LIMIT_DEFAULT = 10;
-        $scope.pubmedDisplayLimit = PUBMED_DISPLAY_LIMIT_DEFAULT;
+        
 
 
         $scope.toggleFilter = function(term) {

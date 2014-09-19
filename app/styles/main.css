@@ -71,12 +71,12 @@ body {
 	padding-bottom: 60px;
 }
 
-.fa-spin {
+/*.fa-spin {
   -webkit-animation: spin 0.5s infinite linear;
   -moz-animation: spin 0.5s infinite linear;
   -o-animation: spin 0.5s infinite linear;
   animation: spin 0.5s infinite linear;
-}
+}*/
 
 
 html, body {
