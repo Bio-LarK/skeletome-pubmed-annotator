@@ -7,72 +7,72 @@
  * # annotator
  */
 angular.module('skeletomePubmedAnnotatorApp')
-    .directive('annotator', function ($compile) {
+    .directive('annotator', function () {
         return {
-            templateUrl: 'views/annotator.html',
-            restrict: 'E',
-            scope: {
-                'annotations': '=',
-                'text': '=',
-            },
+            // templateUrl: 'views/annotator.html',
+            restrict: 'A',
             link: function postLink(scope, element) {
                 // element.text('this is the annotator directive');
 
-                var formattedText;
-                scope.isAnnotating = false;
+                // console.log('text', element.html());
 
-                scope.$watch('text', function () {
-                    markupText(scope.text, scope.annotations);
-                });
+                element.annotator();
 
-                scope.$watch('annotations', function (newAnnotations, oldAnnotations) {
-                    console.log('annotations changed', newAnnotations);
-                    if (!oldAnnotations && newAnnotations) {
-                        markupText(scope.text, scope.annotations);
-                    }
-                });
+                // var formattedText;
+                // scope.isAnnotating = false;
 
-                scope.mouseDown = function () {
-                    console.log('down');
-                    scope.isAnnotating = true;
-                    // element.find('.abstract').text(scope.text);
-                };
-                scope.mouseUp = function () {
-                    console.log('up');
+                // scope.$watch('text', function () {
+                //     markupText(scope.text, scope.annotations);
+                // });
 
-                    var range = window.getSelection().getRangeAt(0);
-                    scope.annotation = {
-                        startOffset: range.startOffset,
-                        endOffset: range.endOffset,
-                        originalSpan: scope.text.substring(range.startOffset, range.endOffset)
-                    };
-                    // element.find('.abstract').html(formattedText);
-                    // markupText
-                    // 
-                    scope.isAnnotating = false;
+                // scope.$watch('annotations', function (newAnnotations, oldAnnotations) {
+                //     console.log('annotations changed', newAnnotations);
+                //     if (!oldAnnotations && newAnnotations) {
+                //         markupText(scope.text, scope.annotations);
+                //     }
+                // });
 
-                };
-
+                // scope.mouseDown = function () {
+                //     console.log('down');
+                //     scope.isAnnotating = true;
+                //     // element.find('.abstract').text(scope.text);
+                // };
                 // scope.mouseUp = function () {
+                //     console.log('up');
+
+                //     var range = window.getSelection().getRangeAt(0);
+                //     scope.annotation = {
+                //         startOffset: range.startOffset,
+                //         endOffset: range.endOffset,
+                //         originalSpan: scope.text.substring(range.startOffset, range.endOffset)
+                //     };
+                //     // element.find('.abstract').html(formattedText);
+                //     // markupText
+                //     // 
+                //     scope.isAnnotating = false;
 
                 // };
 
-                function compileText() {
-                    var $abstract = element.find('.abstract');
-                    $abstract.html(formattedText);
-                    $compile($abstract)(scope);
-                }
+                // // scope.mouseUp = function () {
 
-                function markupText(text, annotations) {
-                    formattedText = text;
+                // // };
 
-                    angular.forEach(annotations, function (annotation, index) {
-                        var re = new RegExp('\\b(' + annotation.originalSpan + ')\\b', 'gi');
-                        formattedText = formattedText.replace(re, '<annotation data="annotations[' + index + ']"></annotation>');
-                    });
+                // function compileText() {
+                //     var $abstract = element.find('.abstract');
+                //     $abstract.html(formattedText);
+                //     $compile($abstract)(scope);
+                // }
 
-                    compileText();
-                }
+                // function markupText(text, annotations) {
+                //     formattedText = text;
+
+                //     angular.forEach(annotations, function (annotation, index) {
+                //         var re = new RegExp('\\b(' + annotation.originalSpan + ')\\b', 'gi');
+                //         formattedText = formattedText.replace(re, '<annotation data="annotations[' + index + ']"></annotation>');
+                //     });
+
+                //     compileText();
+                // }
 
             }
         };
