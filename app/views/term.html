@@ -30,8 +30,15 @@
                 <div class="media-body">
                     <div class="col-sm-8">
                         <h2>{{ term.label || 'Loading...' }}
+
                             <small ng-show="term.ic" class="term-ic">IC {{ term.ic | number:3 }}</small>
-                            <a ng-show="term && $stateParams.termType === 'mesh'" ng-href="http://pubmed-browser.human-phenotype-ontology.org:8080/phenopub/mesh/download?id={{ $stateParams.termId }}" download class="btn btn-default">Download</a>
+
+                            <span ng-show="term" class="pull-right">
+                                <a ng-show="term && $stateParams.termType === 'mesh'" ng-href="http://pubmed-browser.human-phenotype-ontology.org:8080/phenopub/mesh/download?id={{ $stateParams.termId }}" download class="btn btn-default">Download</a>
+
+                                <a ng-show="diseaseNetworkUrl" target="_blank" ng-href="{{ diseaseNetworkUrl }}" class="btn btn-primary">View Disease Network</a>    
+                            </span>
+                            
                         </h2>
                         <div ng-switch="$stateParams.termType">
                             <p class="text-muted" ng-switch-when="hpo">
@@ -41,6 +48,8 @@
                                 MeSH Term
                             </p>
                         </div>
+    
+                        
 
                         <div ng-repeat="pubmed in term.pubs | limitTo:limit" class="result">
                             <div class="media">
