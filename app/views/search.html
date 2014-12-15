@@ -62,14 +62,17 @@ footer {}
             Lorem Ispum hpo la de da.
         </p> -->
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
-                    <div id="front-search" ui-select2="searchSelect" ng-model="searchbar.terms" ng-change="doSearch(searchbar.terms)">
+                <div class="col-sm-6 col-sm-offset-2">
+                    <div id="front-search" ui-select2="searchSelect" ng-model="searchbar.terms">
                     </div>
+                </div>
+                <div class="col-sm-2">
+                    <button style="padding:14px 16px;" class="btn btn-primary btn-lg btn-block" ng-disabled="!searchbar.terms.length" ng-click="doSearch(searchbar.terms)"><i class="fa fa-search"></i> Search</button>
                 </div>
             </div>
 
 
-            <div class="footer footer-search" ng-if="$state.current.name == 'search'">
+            <div class="footer footer-search" ng-if="$state.current.name == 'search'" style="margin-top:100px;">
                 <div class="container" ng-include="'views/logos.html'">
                 </div>
             </div>
