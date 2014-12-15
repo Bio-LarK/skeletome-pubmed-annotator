@@ -22,7 +22,7 @@
 
         <div class="row" ng-show="searchbar.terms.length && pubmeds && allPubmeds.length === pubmeds.length">
             <div class="col-sm-8 col-sm-offset-3" style="margin-bottom: 30px;">
-                <h2 style="margin-top:0;">Search Results</h2>
+                <h2 style="margin-top:10px;font-weight:200;">Search Results</h2>
                 <span ng-show="pubmeds.length">1-{{ pubmedDisplayLimit }} of </span>{{ allPubmeds.length }} results for <span ng-repeat="term in searchbar.terms" style="font-weight: bold;">"{{ term.label }}"&nbsp;</span>
             </div>
         </div>
