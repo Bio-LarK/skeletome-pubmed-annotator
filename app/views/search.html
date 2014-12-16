@@ -1,12 +1,12 @@
 <style>
 .jumbotron {
     text-align: center;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*margin: auto;*/
     /*width: 50%;*/
     height: 50%;
     background-color: transparent;
@@ -30,6 +30,156 @@
     padding: 5px 5px 3px 5px;
     border-radius: 3px;
 }
+
+
+.navbar {
+        margin-bottom: 10px;
+    }
+    .jumbotron-feature {
+        margin: 0;
+        text-align: center;
+    }
+    .jumbotron-feature .jumbotron-heading {
+        font-weight: 400;
+        margin: 25px auto 10px;
+        font-size: 42px;
+    }
+    .jumbotron-feature .hero-icon {
+        border-color: white;
+    }
+    .jumbotron-feature .leading {
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    .feature-section {
+        padding: 80px 0;
+        /*border-bottom: 1px solid #ddd;*/
+    }
+    .page-nav {
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+        color: rgba(0,0,0,0.5);
+    }
+    .page-nav .nav-pills {
+        display: inline-block;
+    }
+    .page-nav {
+        height: 60px;
+        background-color: white;
+        z-index: 99;
+    }
+    .sticky.ui-scrollfix .page-nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+    .feature-heading {
+        font-weight: 300;
+        font-size: 36px;
+        text-align: center;
+        line-height: 1.5;
+        margin: 0px 0 20px;
+    }
+    .feature-image {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+    }
+    .feature-section-download .feature-image {
+        padding-top: 20px;
+        padding-bottom: 30px;
+    }
+    .feature-section li {
+        /*text-align: center;*/
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    .hero-icon {
+        width: 75px;
+        height: 75px;
+        border-radius: 75px;
+        text-align: center;
+        border: 1px solid #ddd;
+        margin: 0 auto;
+    }
+    .hero-icon .mega-icon {
+        font-size: 34px;
+        text-shadow: none;
+        line-height: 73px;
+        position: relative;
+        left: 1px;
+    }
+    .take-tour {
+        padding: 25px 0;
+        background-color: #FFE371;
+        text-align: center;
+        color: white;
+    }
+    .start-searching-heading {
+        font-weight: 300;
+        font-size: 28px;
+        text-align: center;
+        line-height: 1.5;
+        margin: 0 auto 20px;
+        color: rgba(0,0,0,0.7);
+    }
+    .take-tour .btn {
+        background-color: black;
+        border-color: black;
+        color: white;
+        /*border-radius: 100px;*/
+        padding: 15px 30px;
+    }
+
+    .start-searching {
+        padding: 60px 0;
+        background-color: rgb(45, 45, 45);
+        text-align: center;
+        color: white;
+    }
+    .start-searching-heading {
+        font-weight: 300;
+        font-size: 28px;
+        text-align: center;
+        line-height: 1.5;
+        margin: 0 auto 20px;
+        color: rgba(0,0,0,0.7);
+    }
+    .start-searching .btn {
+        /*background-color: black;*/
+        /*border-color: black;*/
+        /*color: white;*/
+        /*border-radius: 100px;*/
+        padding: 15px 30px;
+    }
+    .team-img {
+        width:75%;
+        padding-bottom:75%;
+        background-size:cover;
+        border-radius:100%;
+        margin: 0 auto 20px auto;
+    }
+    .team-img-tudor {
+        background-image:url('../images/team-tudor-groza.jpg');
+    }
+    .team-img-craig {
+        background-image:url('../images/team-craig-mcnamara.jpg');
+    }
+    .team-img-andreas {
+        background-image:url('../images/team-andreas-zankl.jpg');
+    }
+    .team-img-peter {
+        background-image:url('../images/team-peter-robinson.jpg');
+        background-position: 50% 0%; 
+    }
+    .team-img-sebastian {
+        background-image:url('../images/team-sebastian-koehler.jpg');
+    }
+
+
 footer {}
 </style>
 <div style="border-top: 5px solid #f1c40f">
@@ -38,16 +188,16 @@ footer {}
         <div class="row">
             <div class="">
                 <p style="text-align: right; margin-top: 20px;">
-                    <a ui-sref="about" class="btn btn-default">Meet the Team</a>
+                    <!-- <a ui-sref="about" class="btn btn-default">Meet the Team</a> -->
                     <a class="btn btn-default"><i class="fa fa-cloud-download text-muted"></i> Download Data</a>
-                    <a ui-sref="tour" class="btn btn-primary">Take the Tour</a>
+                    <!-- <a ui-sref="tour" class="btn btn-primary">Take the Tour</a> -->
                 </p>
             </div>
         </div>
     </div>
 
 
-    <div class="jumbotron animated bounceInDown">
+    <div class="jumbotron" style="padding-bottom:170px;padding-top:120px;">
         <div class="container">
             <div style="width: 50px; height: 50px; background-color: #f1c40f; margin: 0 auto; border-radius: 100px;">
                 <i class="fa fa-book" style="color: white; font-size: 20px; line-height: 50px;"></i>
@@ -70,23 +220,162 @@ footer {}
                     <button style="padding:10px 16px;position:relative;top:-1px;" class="btn btn-primary btn-block" ng-disabled="!searchbar.terms.length" ng-click="doSearch(searchbar.terms)"><i class="fa fa-search"></i> Search</button>
                 </div>
             </div>
+            <p class="text-muted"> 
+                <small style="font-size:14px;">Not sure what to do? <a ui-sref="tour">Take the tour</a></small>
+            </p>
+        </div>
+    </div>
 
 
-            <div class="footer footer-search" ng-if="$state.current.name == 'search'" style="margin-top:100px;">
+
+    
+
+
+    <div class="features">
+        <div class="feature-section" style="background-color:#efefef;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <h3 class="feature-heading">Browsing should be easy.</h3>
+                <!-- <p class="text-center">Small test for my feature</p> -->
+                <p class="text-center text-muted" style="font-size: 16px;line-height:1.5;">The PubMed Browser lets you to browse articles from the PubMed database using HPO and MeSH terms extracted from the publications' abstract. You can also mash-up multiple terms to find all the relevant publications.</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="feature-section" style="">
+            <div class="container">
+                <h3 class="feature-heading">Features</h3>
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="row">
+                            <div class="col-sm-4">
+                        <h4><i class="fa fa-search"></i> Intelligent Search</h4>
+                        <p class="text-muted">Retrieve quickly publications using HPO and MeSH terms.
+Combine HPO and MeSH terms for more restrictive queries.</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4><i class="fa fa-filter"></i> Advanced Analysis</h4>
+                        <p class="text-muted">Filter quickly publications using HPO and MeSH facets. Get direct access to HPO and MeSH term-based views.</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4><i class="fa fa-binoculars"></i> Insightful Exploring</h4>
+                        <p class="text-muted">Gain a comprehensive understanding of the HPO terms associated with a MeSH disease. View the MeSH term in the Disease Network context.</p>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="take-tour" style="padding:50px 0;">
+            <div class="container">
+                <h3 class="start-searching-heading">
+                    Want to Learn More?
+                </h3>
+                <button class="btn btn-primary btn-lg" ui-sref="tour"><i class="fa fa-list-ol"></i> Take the Tour</button>
+            </div>
+        </div>
+    
+        <div class="feature-section" style="">
+            <div class="container">
+                <h3 class="feature-heading" style="margin-bottom:10px;">Quick Examples</h3>
+                <p class="text-center lead text-muted" style="margin-bottom:30px;">Try these searches to see interesting results</p>
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1" class="text-center">
+                        <!-- <h4 class="text-center text-muted">Search for</h4> -->
+                        <div class="text-center">
+                            <a href="#/results?terms=%5B%7B%22id%22:%22HP:0004322%22,%22label%22:%22Short%20stature%22,%22type%22:%22hpo%22,%22text%22:%22Short%20stature%22%7D%5D" style="margin-right:10px;" class="btn btn-lg btn-info"><i class="fa fa-search"></i> Short Stature</a>
+                            <a href="#/results?terms=%5B%7B%22id%22:%22D010300%22,%22label%22:%22Parkinson%20Disease%22,%22type%22:%22mesh%22,%22text%22:%22Parkinson%20Disease%22%7D%5D" style="margin-right:10px;" class="btn btn-lg btn-info"><i class="fa fa-search"></i> Parkinson Disease</a>
+                            <a href="#/results?terms=%5B%7B%22id%22:%22D000544%22,%22label%22:%22Alzheimer%20Disease%22,%22type%22:%22mesh%22,%22text%22:%22Alzheimer%20Disease%22%7D,%7B%22id%22:%22HP:0001635%22,%22label%22:%22Congestive%20heart%20failure%22,%22type%22:%22hpo%22,%22text%22:%22Congestive%20heart%20failure%22%7D%5D" class="btn btn-lg btn-info"><i class="fa fa-search"></i> Alzheimer Disease <em>and</em> Congestive Heart failure</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-section" id="download" style="background-color:#efefef;">
+            <div class="container">
+                <div class="row">
+                    <h3 class="feature-heading" style="margin-bottom:10px;">
+                        Hungry for all the Data?
+                    </h3>
+                    <p class="text-muted lead text-center">It's ready to download now.</p>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-lg"><i class="fa fa-cloud-download"></i> Download Data </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="feature-section" >
+            <div class="container">
+                <h3 class="feature-heading">Our Team</h3>
+                <div class="row">
+                    <div class="col-sm-2 col-sm-offset-1">
+                        <div style="" class="team-img team-img-tudor"></div>
+                        <!-- <img class="img-responsive" src="http://www.itee.uq.edu.au/eresearch//filething/images/get/staff/img_tudor_groza.jpg" alt="..."> -->
+                        <h4 class="text-center">Tudor Groza</h4>
+                        <p class="text-center text-muted">University of Queensland</p>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="team-img team-img-craig"></div>
+                        <h4 class="text-center">Craig McNamara</h4>
+                        <p class="text-center text-muted">University of Queensland</p>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="team-img team-img-andreas"></div>
+                        <h4 class="text-center">Andreas Zankl</h4>
+                        <p class="text-center text-muted">University of Sydney</p>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="team-img team-img-peter"></div>
+                        <h4 class="text-center">Peter Robinson</h4>
+                        <p class="text-center text-muted">Charite Medical University, Berlin</p>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="team-img team-img-sebastian"></div>
+                        <h4>Sebastian Koehler</h4>
+                        <p class="text-center text-muted">Charite Medical University, Berlin</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        
+
+        
+        <div class="start-searching">
+            <div class="container">
+                <h3 class="start-searching-heading" style="color: white;margin-bottom:30px;">
+                    Start Searching
+                </h3>
+                <div class="row">
+                <div class="col-sm-6 col-sm-offset-2">
+                    <div id="front-search" ui-select2="searchSelect" ng-model="searchbar.terms">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <button style="padding:10px 16px;position:relative;top:-1px;" class="btn btn-primary btn-block" ng-disabled="!searchbar.terms.length" ng-click="doSearch(searchbar.terms)"><i class="fa fa-search"></i> Search</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="footer footer-search" ng-if="$state.current.name == 'search'" style="margin-top:100px;">
                 <div class="container" ng-include="'views/logos.html'">
                 </div>
             </div>
-
-            <!-- <div style="text-align: center; margin-top: 35px;">
-    <img src="images/monarch-initiative-logo.png" alt="" style="width: 50px;">Monarch Initiative
-</div>
- -->
-
-
-            <!-- <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p> -->
-        </div>
-    </div>
-    <!-- <footer style="position: absolute; bottom: 0; width: 100%;">
-        powered by
-    </footer> -->
 </div>

@@ -44,6 +44,12 @@
         top: 0;
         width: 100%;
     }
+    .select2-container-multi .select2-choices {
+        border: 1px solid #ddd;
+        background-image: none;
+        padding: 5px 5px 3px 5px;
+        border-radius: 3px;
+    }
     .feature-heading {
         font-weight: 300;
         font-size: 36px;
@@ -81,8 +87,8 @@
         left: 1px;
     }
     .start-searching {
-        padding: 25px 0;
-        background-color: #f1c40f;
+        padding: 60px 0;
+        background-color: rgb(45, 45, 45);
         text-align: center;
         color: white;
     }
@@ -92,11 +98,14 @@
         text-align: center;
         line-height: 1.5;
         margin: 0 auto 20px;
+        color: rgba(0,0,0,0.7);
     }
     .start-searching .btn {
-        background-color: white;
-        border-color: white;
-        color: #6D6237;
+        /*background-color: black;*/
+        /*border-color: black;*/
+        /*color: white;*/
+        /*border-radius: 100px;*/
+        padding: 15px 30px;
     }
     </style>
     <!--  <ul>
@@ -139,7 +148,7 @@
             Downloading the data
         </li>
     </ul> -->
-    <div class="jumbotron jumbotron-feature">
+    <div class="jumbotron jumbotron-feature" style="display:none;">
         <div class="container">
             <div class="hero-icon">
                 <span class="mega-icon fa fa-book"></span>
@@ -282,12 +291,20 @@
             </div>
         </div>
 
-        <div class="start-searching">
+       <div class="start-searching">
             <div class="container">
-                <h3 class="start-searching-heading">
-                    Ready to go?
+                <h3 class="start-searching-heading" style="color: white;margin-bottom:30px;">
+                    Start Searching
                 </h3>
-                <button class="btn btn-primary btn-lg" ui-sref="search"><i class="fa fa-search"></i> Start Searching</button>
+                <div class="row">
+                <div class="col-sm-6 col-sm-offset-2">
+                    <div id="front-search" ui-select2="searchSelect" ng-model="searchbar.terms">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <button style="padding:10px 16px;position:relative;top:-1px;" class="btn btn-primary btn-block" ng-disabled="!searchbar.terms.length" ng-click="doSearch(searchbar.terms)"><i class="fa fa-search"></i> Search</button>
+                </div>
+            </div>
             </div>
         </div>
 

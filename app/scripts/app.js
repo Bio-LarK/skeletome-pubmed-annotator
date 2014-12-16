@@ -88,9 +88,11 @@ angular.module('skeletomePubmedAnnotatorApp', [
         $rootScope.searchbar = searchbar;
 
     })
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $uiViewScrollProvider) {
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise('/');
+
+        $uiViewScrollProvider.useAnchorScroll();
 
         // $locationProvider.html5Mode(true).hashPrefix('!');
         //
