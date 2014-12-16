@@ -12,6 +12,7 @@ angular.module('skeletomePubmedAnnotatorApp')
         // Service logic
         // ...
         // 
+
         var searchbar = {
             terms: [],
             groupedTerms: {
@@ -48,6 +49,14 @@ angular.module('skeletomePubmedAnnotatorApp')
             }
         });
 
+        searchbar.groupTerms = function() {
+            searchbar.groupedTerms.hpo = _.where(searchbar.terms, {
+                    type: 'hpo'
+            });
+            searchbar.groupedTerms.mesh = _.where(searchbar.terms, {
+                type: 'mesh'
+            });
+        };
         /**
          * Called when the search terms change
          * @param  {[type]} terms [description]
@@ -55,12 +64,7 @@ angular.module('skeletomePubmedAnnotatorApp')
          */
         $rootScope.doSearch = function (terms) {
             if (terms) {
-                searchbar.groupedTerms.hpo = _.where(terms, {
-                    type: 'hpo'
-                });
-                searchbar.groupedTerms.mesh = _.where(terms, {
-                    type: 'mesh'
-                });
+                searchbar.groupTerms();
                 // console.log('no TEST!');
                 // if (terms.length === 0) {
                 //     // console.log('no length');

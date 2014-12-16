@@ -95,6 +95,8 @@ angular.module('skeletomePubmedAnnotatorApp')
             }, []);
 
             angular.copy(terms, searchbar.terms);
+            searchbar.groupTerms();
+            
             $http.get('http://118.138.241.167:8080/phenopub/search?hpo=' + hpoIds.join(',') + '&mesh=' + meshIds.join(',')).success(function(data) {
                 $scope.allPubmeds = _.values(data);
 
