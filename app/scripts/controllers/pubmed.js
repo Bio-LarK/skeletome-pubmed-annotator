@@ -8,13 +8,15 @@
  * Controller of the skeletomePubmedAnnotatorApp
  */
 angular.module('skeletomePubmedAnnotatorApp')
-    .controller('PubmedCtrl', function ($scope, $http, $stateParams) {
+    .controller('PubmedCtrl', function ($scope, $http, $stateParams, pageService) {
 
         console.log('HERE!');
 
         $http.get('http://118.138.241.167:8080/phenopub/pmid?id=' + $stateParams.pubmedId).then(function (response) {
             // Transform the data into standard format
             var pubmed = response.data;
+            pageService.title = pubmed.title;
+            
             _.each(pubmed.hpo, function (hpo, id) {
                 hpo.id = id;
                 hpo.ic = parseFloat(hpo.ic);

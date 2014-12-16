@@ -11,7 +11,9 @@
  * Controller of the skeletomePubmedAnnotatorApp
  */
 angular.module('skeletomePubmedAnnotatorApp')
-    .controller('ResultsCtrl', function($scope, $stateParams, $http, searchbar) {
+    .controller('ResultsCtrl', function($scope, $stateParams, $http, searchbar, pageService) {
+
+        pageService.title = 'Search results';
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',

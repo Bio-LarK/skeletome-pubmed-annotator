@@ -12,14 +12,13 @@ angular.module('skeletomePubmedAnnotatorApp', [
     'ui.router', 'restangular', 'ui.select2', 'angular-loading-bar',
     'truncate', 'ui.utils', 'duScroll'
 ])
-    .run(function ($rootScope, $state, $stateParams, searchbar, $timeout, $http) { // instance-injector
+    .run(function ($rootScope, $state, $stateParams, searchbar, $timeout, $http, pageService) { // instance-injector
         // This is an example of a run block.
         // You can have as many of these as you want.
         // You can only inject instances (not Providers)
         // into run blocks
 
-
-
+        $rootScope.pageService = pageService;
         $rootScope.searchSelect = {
             placeholder: 'Search for HPO, Mesh or Publication Title',
             // dropdownAutoWidth: true,

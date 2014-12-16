@@ -1,9 +1,9 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="skeletomePubmedAnnotatorApp">
 
 <head>
     <meta charset="utf-8">
-    <title>Pubmed Browser - Human Phenotype Ontology</title>
+    <title>{{ pageService.title }} - Pubmed Browser - Human Phenotype Ontology</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -24,7 +24,7 @@
     <!-- <link rel="stylesheet" href="http://basehold.it/21"> -->
 </head>
 
-<body ng-app="skeletomePubmedAnnotatorApp" ng-cloak>
+<body ng-cloak>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -172,6 +172,7 @@
     <script src="scripts/services/api.js"></script>
     <script src="scripts/controllers/tour.js"></script>
     <script src="scripts/services/externalidentifier.js"></script>
+    <script src="scripts/services/pageservice.js"></script>
     <!-- endbuild -->
 </body>
 
