@@ -288,9 +288,24 @@ Combine HPO and MeSH terms for more restrictive queries.</p>
                     <div class="col-sm-10 col-sm-offset-1" class="text-center">
                         <!-- <h4 class="text-center text-muted">Search for</h4> -->
                         <div class="text-center">
-                            <a href="#/results?terms=%5B%7B%22id%22:%22HP:0004322%22,%22label%22:%22Short%20stature%22,%22type%22:%22hpo%22,%22text%22:%22Short%20stature%22%7D%5D" style="margin-right:10px;" class="btn btn-lg btn-info"><i class="fa fa-search"></i> Short Stature</a>
-                            <a href="#/results?terms=%5B%7B%22id%22:%22D010300%22,%22label%22:%22Parkinson%20Disease%22,%22type%22:%22mesh%22,%22text%22:%22Parkinson%20Disease%22%7D%5D" style="margin-right:10px;" class="btn btn-lg btn-info"><i class="fa fa-search"></i> Parkinson Disease</a>
-                            <a href="#/results?terms=%5B%7B%22id%22:%22D000544%22,%22label%22:%22Alzheimer%20Disease%22,%22type%22:%22mesh%22,%22text%22:%22Alzheimer%20Disease%22%7D,%7B%22id%22:%22HP:0001635%22,%22label%22:%22Congestive%20heart%20failure%22,%22type%22:%22hpo%22,%22text%22:%22Congestive%20heart%20failure%22%7D%5D" class="btn btn-lg btn-info"><i class="fa fa-search"></i> Alzheimer Disease <em>and</em> Congestive Heart failure</a>
+                            <div style="margin-bottom:10px;">
+                                <a href="#/results?terms=%5B%7B%22id%22:%22D000544%22,%22label%22:%22Alzheimer%20Disease%22,%22type%22:%22mesh%22,%22text%22:%22Alzheimer%20Disease%22%7D,%7B%22id%22:%22HP:0001635%22,%22label%22:%22Congestive%20heart%20failure%22,%22type%22:%22hpo%22,%22text%22:%22Congestive%20heart%20failure%22%7D%5D" class="btn btn-lg btn-info"><i class="fa fa-search"></i> Alzheimer Disease <em>and</em> Congestive Heart failure <span style="font-size:14px;color:rgba(255,255,255,0.5)">Search</span></a>    
+                            </div>
+
+                            <div style="margin-bottom:10px;">
+                                <a href="#/mesh/D010300" class="btn btn-lg btn-info">
+                                    Parkinson Disease 
+                                    <span style="font-size:14px;color:rgba(255,255,255,0.5)">MeSH</span>
+                                </a>    
+                            </div>
+                            <div>
+                                <a href="#/hpo/HP:0004322" style="margin-right:10px;" class="btn btn-lg btn-info">
+                                    Short Stature
+                                    <span style="font-size:14px;color:rgba(255,255,255,0.5)">HPO</span>
+                                </a>    
+                            </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -301,7 +316,7 @@ Combine HPO and MeSH terms for more restrictive queries.</p>
             <div class="container">
                 <div class="row">
                     <h3 class="feature-heading" style="margin-bottom:10px;">
-                        Hungry for all the Data?
+                        Want all the Data?
                     </h3>
                     <p class="text-muted lead text-center">It's ready to download now.</p>
                     <div class="text-center">
